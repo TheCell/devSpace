@@ -153,7 +153,10 @@
 		<legend>Options</legend>
 		Connection range: <input type="range" min="1" max="70000" value="100" id="maxConnectDist">
 		Time between Points: <input type="range" min="10" max="200" value="10" id="maxTimeBetweenPoints">
+		<a onclick="downloadCurrent()" id="downloadButton">Download</a>
 		<button onclick="reset()">reset</button>
+
+
 
 		<script type="text/javascript">
 			let maxConnectDistSlider = document.getElementById("maxConnectDist");
@@ -185,6 +188,13 @@
 				window.alreadyDrawnPoints = [];
 				window.drawCanvas.getContext("2d").clearRect(0, 0, window.drawCanvas.width, window.drawCanvas.height);
 				console.log("cleared");
+			}
+
+			function downloadCurrent()
+			{
+				link = document.getElementById("downloadButton");
+				link.href = document.getElementById("mouseoverlay").toDataURL();
+				link.download = "mousethreaded_dev.thecell.eu.png";
 			}
 		</script>
 	</fieldset>
