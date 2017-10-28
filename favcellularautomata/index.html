@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>random Cellular Automata</title>
+	<link id="cafavicon" rel="icon" type="image/x-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACWCAYAAABkW7XSAAAA70lEQVR4nO3UAQkAMAzAsKudfwe/iMOgkEAt9MzM/ekAbDEsIMOwgAzDAjIMC8gwLCDDsIAMwwIyDAvIMCwgw7CADMMCMgwLyDAsIMOwgAzDAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHY9OFMxH+vdrgAAAAAASUVORK5CYII=">
+</head>
+<body>
+The Favicon is a cellular automata with a random seed, try reloading the page.
+Please check out <a href="http://mathworld.wolfram.com/ElementaryCellularAutomaton.html">ElementaryCellularAutomaton</a> to know more about the rules and <a href="http://natureofcode.com/book/chapter-7-cellular-automata/">Cellular Automata</a> for infos about cellular automata.
+<p>interactive version: <a href="digitalLoom.php">Digital Loom</a></p>
+<canvas id="faviconCanvas" width="16" height="16"></canvas>
+
+<div id="tempIcons">
+
+</div>
+
+<script type="text/javascript">
+	window.iterationCount = 0;
+	window.intervalId;
+	window.currentIteration = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1];
+	window.isScroll = false;
+
+	function generateNextIcon()
+	{
+		let canvas = document.getElementById("faviconCanvas");
+		let ctx = canvas.getContext("2d");
+
+		// set composite to standard
+		ctx.globalCompositeOperation = 'source-over';
+
+		// paint it black! I did not forsee this thing happening to me.
+		//ctx.fillStyle = '#000';
+		//ctx.fillRect( 0, 0, 16, 16 );
+
+		// move rows one up
+		if(!window.isScroll && window.iterationCount == 15)
+		{
+			// paint new row
+			for(let i = 0; i < window.currentIteration.length -1; i++)
+			{
+				if(window.currentIteration[i] > 0)
+				{
+					ctx.fillStyle = "rgb(255, 140, 0)";
+					ctx.fillRect(i, window.iterationCount, 1, 1);
+				}
+				else
+				{
+					ctx.fillStyle = "rgb(0, 0, 0)";
+					ctx.fillRect(i, window.iterationCount, 1, 1);
+				}
+			};
+
+			window.isScroll = true;
+		} else if(window.iterationCount == 15)
+		{
+			let imageData = ctx.getImageData(0, 1, ctx.canvas.width, ctx.canvas.height);
+			ctx.putImageData(imageData, 0, 0);
+
+			// paint new row
+			for(let i = 0; i < window.currentIteration.length -1; i++)
+			{
+				if(window.currentIteration[i] > 0)
+				{
+					ctx.fillStyle = "rgb(255, 140, 0)";
+					ctx.fillRect(i, window.iterationCount, 1, 1);
+				}
+				else
+				{
+					ctx.fillStyle = "rgb(0, 0, 0)";
+					ctx.fillRect(i, window.iterationCount, 1, 1);
+				}
+			};
+		}
+		else
+		{
+			// paint new row
+			for(let i = 0; i < window.currentIteration.length -1; i++)
+			{
+				if(window.currentIteration[i] > 0)
+				{
+					ctx.fillStyle = "rgb(255, 140, 0)";
+					ctx.fillRect(i, window.iterationCount, 1, 1);
+				}
+				else
+				{
+					ctx.fillStyle = "rgb(0, 0, 0)";
+					ctx.fillRect(i, window.iterationCount, 1, 1);
+				}
+			};
+
+			ctx.fillStyle = "rgb(0, 0, 0)";
+			ctx.fillRect(0, window.iterationCount + 1, ctx.canvas.width, ctx.canvas.height);
+
+			window.iterationCount++;
+		}
+
+		// fill the ignored left and right outermost pixel
+		if(window.currentIteration[0] > 0)
+		{
+			ctx.fillStyle = "rgb(255, 140, 0)";
+			ctx.fillRect(0, 0, 1, 1);
+		}
+		else
+		{
+			ctx.fillStyle = "rgb(0, 0, 0)";
+			ctx.fillRect(0, 0, 1, 1);
+		}
+		if(window.currentIteration[window.currentIteration.length] > 0)
+		{
+			ctx.fillStyle = "rgb(255, 140, 0)";
+			ctx.fillRect(15, 15, 1, 1);
+		}
+		else
+		{
+			ctx.fillStyle = "rgb(0, 0, 0)";
+			ctx.fillRect(15, 15, 1, 1);
+		}
+
+		// calc next iteration
+		window.currentIteration = generateNextIteration(window.currentIteration, window.ruleset);
+
+		// exchange the icon
+		let favOrig = document.getElementById("cafavicon");
+		let favClone = favOrig.cloneNode(true);
+		favClone.setAttribute('href', ctx.canvas.toDataURL());
+
+		let newLink = document.createElement('link');
+		newLink.id = "cafavicon";
+		newLink.rel = "icon";
+		newLink.href = ctx.canvas.toDataURL();
+
+		// temp
+		/*
+		let cnvs = document.createElement("CANVAS");
+		cnvs.width = 16;
+		cnvs.height = 16;
+		let cnvsctx = cnvs.getContext('2d');
+		cnvsctx.drawImage(canvas, 0, 0);
+		document.getElementById("tempIcons").appendChild(cnvs);
+		*/
+
+		/*
+		let parentContainer = favOrig.parentNode;
+		parentContainer.appendChild(favClone);
+		parentContainer.removeChild(favOrig);
+		*/
+
+		//favOrig.parentNode.replaceChild(favClone, favOrig);
+		favOrig.parentNode.replaceChild(newLink, favOrig);
+	}
+
+	function init()
+	{
+		let rndNr = Math.floor(Math.random() * 10);
+
+		switch(rndNr)
+		{
+			case 0:
+				console.log("rule 110");
+				// ruleset 110
+				window.ruleset = [0, 1, 1, 0, 1, 1, 1, 0];
+			break;
+			case 1:
+				console.log("rule 126");
+				// ruleset 126
+				window.ruleset = [0, 1, 1, 1, 1, 1, 1, 0];
+			break;
+			case 2:
+				console.log("rule 30");
+				// ruleset 30
+				window.ruleset = [0, 0, 0, 1, 1, 1, 1, 0];
+			break;
+			case 3:
+				console.log("rule 54");
+				// ruleset 54
+				window.ruleset = [0, 0, 1, 1, 0, 1, 1, 0];
+			break;
+			case 4:
+				console.log("rule 62");
+				// ruleset 62
+				window.ruleset = [0, 0, 1, 1, 1, 1, 1, 0];
+			break;
+			case 5:
+				console.log("rule 90");
+				// ruleset 90
+				window.ruleset = [0, 1, 0, 1, 1, 0, 1, 0];
+			break;
+			case 6:
+				console.log("rule 94");
+				// ruleset 94
+				window.ruleset = [0, 1, 0, 1, 1, 1, 1, 0];
+			break;
+			case 7:
+				console.log("rule 102");
+				// ruleset 102
+				window.ruleset = [0, 1, 1, 0, 0, 1, 1, 0];
+			break;
+			case 8:
+				console.log("rule 150");
+				// ruleset 150
+				window.ruleset = [1, 0, 0, 1, 0, 1, 1, 0];
+			break;
+			case 9:
+				console.log("rule 182");
+				// ruleset 182
+				window.ruleset = [1, 0, 1, 1, 0, 1, 1, 0];
+			break;
+			default:
+				console.log("rule 250");
+				// ruleset 250
+				window.ruleset = [1, 1, 1, 1, 1, 0, 1, 0];
+			break;
+		}
+		window.intervalId = setInterval(generateNextIcon, 500);
+	}
+
+	function generateNextIteration(inputarr, ruleset)
+	{
+		let copyArr = inputarr.slice();
+
+		// go thourgh arr excluding first and last index
+		for (var i = 1; i < inputarr.length - 1; i++)
+		{
+			copyArr[i] = ruleToResult(ruleset, inputarr[i - 1], inputarr[i], inputarr[i + 1]);
+		}
+
+		return copyArr;
+	}
+
+	function ruleToResult(ruleset, first, second, third)
+	{
+		let inputString = "" + first + second + third;
+		switch(inputString)
+		{
+			// 1: 111
+			case "111":
+				return ruleset[0];
+			break;
+			// 2: 110
+			case "110":
+				return ruleset[1];
+			break;
+			// 3: 101
+			case "101":
+				return ruleset[2];
+			break;
+			// 4: 100
+			case "100":
+				return ruleset[3];
+			break;
+			// 5: 011
+			case "011":
+				return ruleset[4];
+			break;
+			// 6: 010
+			case "010":
+				return ruleset[5];
+			break;
+			// 7: 001
+			case "001":
+				return ruleset[6];
+			break;
+			// 8: 000
+			case "000":
+				return ruleset[7];
+			break;
+			default:
+				return 0;
+			break;
+		}
+	}
+
+	init();
+</script>
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-75635403-2', 'auto');
+	ga('send', 'pageview');
+
+</script>
+</body>
+</html>
