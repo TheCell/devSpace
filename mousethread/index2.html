@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>testi</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	#mouseoverlay
+	{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		/*background-color: rgba(10, 10, 10, 0.5);*/
+
+		pointer-events: auto;
+		pointer-events: none;
+	}
+
+	body
+	{
+		width: 100vw;
+		height: 100vh;
+		margin: 0;
+	}
+
+	p
+	{
+		margin: 0;
+	}
+	</style>
+</head>
+<body>
+	<p id="demo">Click me.</p>
+	<button id="testButton">test</button>
+	<canvas id="mouseoverlay"></canvas>
+
+	<script type="text/javascript">
+		window.mouseMoveTimer = null;
+		window.trackMouseMove = false;
+		window.mouseCoords = [];
+		window.drawCanvas = document.getElementById("mouseoverlay");
+
+		// set canvas size
+		window.drawCanvas.width = window.innerWidth;
+		window.drawCanvas.height = window.innerHeight;
+
+
+		window.mouseMoveTimer = window.setInterval( function()
+		{
+			// enable mouse tracking every 100 ms
+			window.trackMouseMove = true;
+		}, 50);
+
+		function mouseSafeTimer(evt)
+		{
+			if (!window.trackMouseMove)
+			{
+				return
+			}
+
+			safeMouseCoords(evt);
+			window.trackMouseMove = false;
+		}
+
+		function resizeCanvas()
+		{
+			window.drawCanvas.width = window.innerWidth;
+			window.drawCanvas.height = window.innerHeight;
+
+			drawPointsOnCanvas(window.mouseCoords, window.drawCanvas);
+		}
+
+		function safeMouseCoords(evt)
+		{
+			window.mouseCoords.push({"x": evt.clientX, "y": evt.clientY});
+			drawPointsOnCanvas(window.mouseCoords, window.drawCanvas);
+		}
+
+		document.body.onmousemove = mouseSafeTimer;
+		window.onresize = resizeCanvas;
+
+		function drawPointsOnCanvas(points, canvas)
+		{
+			let ctx = canvas.getContext("2d");
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			let radius = 1;
+
+			// draw points
+			points.forEach(function (ele)
+			{
+				ctx.beginPath();
+				ctx.strokeColor = 'black';
+				ctx.arc(ele.x, ele.y, radius, 0, 2*Math.PI);
+				ctx.stroke();
+			});
+
+			let slicedArr = [];
+			let maxDistanceForLinesSquared = 3000;
+			let cSquared = maxDistanceForLinesSquared;
+			let drawTransparency = 1;
+			// draw lines between all points
+			points.forEach(function (point1, index)
+			{
+				slicedArr = points.slice(index + 1);
+
+				slicedArr.forEach(function (point2)
+				{
+					cSquared = Math.pow(point1.x - point2.x, 2) + Math.pow(point1.y - point2.y, 2);
+					if ( cSquared <= maxDistanceForLinesSquared )
+					{
+						drawTransparency = 1 - (1 / maxDistanceForLinesSquared * cSquared);
+						ctx.strokeStyle = "rgba(228, 35, 19, " + drawTransparency + ")";
+						ctx.beginPath();
+						ctx.moveTo(point1.x, point1.y);
+						ctx.lineTo(point2.x, point2.y);
+						ctx.stroke();
+					}
+				});
+			});
+		}
+		/*
+		let overlay = document.getElementById("mouseoverlay");
+		let mybutton = document.getElementById("testButton");
+		let mouseoverlayCanvas = document.getElementById('mouseoverlay');
+		let bodyMouse = document.body;
+		*/
+
+		//mybutton.onclick = buttonclick;
+		/*
+		mybutton.addEventListener('click', buttonclick);
+
+		function buttonclick()
+		{
+			console.log(this);
+		}
+
+		function safeCurrenntMousepoint()
+		{
+			console.log(getMousePos(mouseoverlayCanvas, evt));
+		}
+
+		function getMousePos(canvas, evt)
+		{
+			var rect = canvas.getBoundingClientRect();
+			return {
+				x: evt.clientX - rect.left,
+				y: evt.clientY - rect.top
+			};
+		}
+
+		function testitest(evt)
+		{
+			console.warn("testitest");
+			var mousePos = getMousePos(mouseoverlayCanvas, evt);
+			console.log('Mouse position: ' + mousePos.x + ',' + mousePos.y);
+		}
+		*/
+
+		//mouseoverlayCanvas.addEventListener('mousedown', testitest, false);
+
+		//window.setInterval(safeCurrenntMousepoint, 500);
+	</script>
+</body>
+</html>
