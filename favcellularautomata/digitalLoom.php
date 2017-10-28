@@ -70,7 +70,7 @@ function downloadCurrent()
 {
 	link = document.getElementById("downloadButton");
 	link.href = document.getElementById("digitalLoomLittle").toDataURL();
-	link.download = "DigitalGewoben";
+	link.download = "DigitalGewoben.png";
 }
 
 function stop()
