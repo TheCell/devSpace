@@ -43,6 +43,7 @@
 		window.mouseCoords = [];
 		window.alreadyDrawnPoints = [];
 		window.drawCanvas = document.getElementById("mouseoverlay");
+		window.drawcolor = "rgb(228, 35, 19)";
 
 		// set canvas size
 		window.drawCanvas.width = window.innerWidth;
@@ -117,7 +118,7 @@
 			points.forEach(function (ele)
 			{
 				ctx.beginPath();
-				ctx.strokeColor = 'black';
+				ctx.strokeColor = window.drawcolor;
 				ctx.arc(ele.x, ele.y, radius, 0, 2*Math.PI);
 				ctx.stroke();
 			});
@@ -131,7 +132,8 @@
 					if ( cSquared <= maxDistanceForLinesSquared )
 					{
 						drawTransparency = 1 - (1 / maxDistanceForLinesSquared * cSquared);
-						ctx.strokeStyle = "rgba(228, 35, 19, " + drawTransparency + ")";
+						//ctx.strokeStyle = "rgba(228, 35, 19, " + drawTransparency + ")";
+						ctx.strokeStyle = window.drawcolor.substring(0, window.drawcolor.length -1) + ", " +drawTransparency + ")";
 						ctx.beginPath();
 						ctx.moveTo(point1.x, point1.y);
 						ctx.lineTo(point2.x, point2.y);
@@ -153,6 +155,7 @@
 		<legend>Options</legend>
 		Connection range: <input type="range" min="1" max="70000" value="100" id="maxConnectDist">
 		Time between Points: <input type="range" min="10" max="200" value="10" id="maxTimeBetweenPoints">
+		<input type="color" name="colorpicker" id="colorpicker" onchange="updateColor(this)">
 		<a onclick="downloadCurrent()" id="downloadButton">Download</a>
 		<button onclick="reset()">reset</button>
 
@@ -180,6 +183,14 @@
 					// enable mouse tracking every 100 ms
 					window.trackMouseMove = true;
 				}, globTimeBetweenPoints);
+			}
+
+			let colorpicker = document.getElementById("colorpicker");
+			colorpicker.value = window.drawcolor;
+
+			function updateColor(ele)
+			{
+				window.drawcolor = 'rgb(' + parseInt(ele.value.slice(-6, -4), 16) + ',' + parseInt(ele.value.slice(-4, -2), 16) + ',' + parseInt(ele.value.slice(-2), 16) + ')';
 			}
 
 			function reset()
