@@ -134,7 +134,7 @@
 					{
 						drawTransparency = 1 - (1 / maxDistanceForLinesSquared * cSquared);
 						//ctx.strokeStyle = "rgba(228, 35, 19, " + drawTransparency + ")";
-						ctx.strokeStyle = window.drawcolor.substring(0, window.drawcolor.length -1) + ", " +drawTransparency + ")";
+						ctx.strokeStyle = "rgba" + window.drawcolor.substring(3, window.drawcolor.length -1) + ", " +drawTransparency + ")";
 						ctx.beginPath();
 						ctx.moveTo(point1.x, point1.y);
 						ctx.lineTo(point2.x, point2.y);
