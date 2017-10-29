@@ -44,6 +44,7 @@
 		window.alreadyDrawnPoints = [];
 		window.drawCanvas = document.getElementById("mouseoverlay");
 		window.drawcolor = "rgb(228, 35, 19)";
+		window.preparedPointsOnCanvas = 0;
 
 		// set canvas size
 		window.drawCanvas.width = window.innerWidth;
@@ -155,10 +156,10 @@
 		<legend>Options</legend>
 		Connection range: <input type="range" min="1" max="70000" value="100" id="maxConnectDist">
 		Time between Points: <input type="range" min="10" max="200" value="10" id="maxTimeBetweenPoints">
+		Prepare Canvas with Points: <input type="range" min="0" max="50" value="0" id="pointsOnCanvas">
 		<input type="color" name="colorpicker" id="colorpicker" onchange="updateColor(this)">
 		<a onclick="downloadCurrent()" id="downloadButton">Download</a>
 		<button onclick="reset()">reset</button>
-
 
 
 		<script type="text/javascript">
@@ -197,6 +198,7 @@
 			{
 				window.mouseCoords = [];
 				window.alreadyDrawnPoints = [];
+				prepareCanvasWithPoints(pointsOnCanvasSlider.value, pointsOnCanvasSlider.value);
 				window.drawCanvas.getContext("2d").clearRect(0, 0, window.drawCanvas.width, window.drawCanvas.height);
 				console.log("cleared");
 			}
@@ -206,6 +208,29 @@
 				link = document.getElementById("downloadButton");
 				link.href = document.getElementById("mouseoverlay").toDataURL();
 				link.download = "mousethreaded_dev.thecell.eu.png";
+			}
+
+			let pointsOnCanvasSlider = document.getElementById("pointsOnCanvas");
+			pointsOnCanvasSlider.value = window.preparedPointsOnCanvas;
+			pointsOnCanvasSlider.oninput = function ()
+			{
+				prepareCanvasWithPoints(pointsOnCanvasSlider.value, pointsOnCanvasSlider.value);
+			}
+
+			// this will reset drawn points
+			function prepareCanvasWithPoints(pointsAcrossX, pointsAcrossY)
+			{
+				let allPoints = [];
+
+				for (let y = 0; y < pointsAcrossY; y++)
+				{
+					for (let x = 0; x < pointsAcrossX; x++)
+					{
+						allPoints.push({"x": (window.drawCanvas.width / (pointsAcrossX - 1)) * x , "y": (window.drawCanvas.height / (pointsAcrossY - 1)) * y});
+					}
+				}
+
+				window.alreadyDrawnPoints = allPoints;
 			}
 		</script>
 	</fieldset>
