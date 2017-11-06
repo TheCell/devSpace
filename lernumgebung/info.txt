@@ -1,0 +1,4 @@
+The Goal is to work through the Files and try to match the screenshot as good as possible.
+In the "Lösung" Folder is an example solution which might be simpler or more complex then what you got.
+
+There will be HTML/CSS and Javascript tasks

@@ -1,0 +1,39 @@
+body
+{
+	background-color: beige;
+	margin: 0;
+}
+
+.titleContainer
+{
+	text-align: center;
+	font-size: 7em;
+	font-style: normal;
+	font-weight: bold;
+	background-color: blueviolet;
+}
+
+.descriptionContainer
+{
+	margin-left: 50px;
+	margin-right: 50px;
+}
+
+.descriptionContainer > div
+{
+	margin-top: 50px;
+	background-color: dimgray;
+	padding: 5px 20px 10px 20px;
+}
+
+.descriptionContainer > div > span
+{
+	display: block;
+	background-color: blueviolet;
+	width: 30%;
+	padding: 5px;
+	margin-top: -15px;
+	margin-left: 20px;
+	text-align: center;
+	font-weight: bold;
+}
