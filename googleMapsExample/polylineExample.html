@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		body
+		{
+			margin: 0;
+		}
+
+		#map
+		{
+			width: 100vw;
+			height: 100vh;
+		}
+	</style>
+</head>
+<body>
+	<div id="map">
+	</div>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXxxzlonPc1QcpgD47wnRGC6pJSGIfEek"></script>
+
+	<script type="text/javascript">
+		let element = document.getElementById("map");
+		let mapStyleJson = [
+			{
+			"elementType": "geometry",
+			"stylers": [
+				{
+				"color": "#ebe3cd"
+				}
+			]
+			},
+			{
+			"elementType": "labels.text.fill",
+			"stylers": [
+				{
+				"color": "#523735"
+				}
+			]
+			},
+			{
+			"elementType": "labels.text.stroke",
+			"stylers": [
+				{
+				"color": "#f5f1e6"
+				}
+			]
+			},
+			{
+			"featureType": "administrative",
+			"elementType": "geometry.stroke",
+			"stylers": [
+				{
+				"color": "#c9b2a6"
+				}
+			]
+			},
+			{
+			"featureType": "administrative.land_parcel",
+			"elementType": "geometry.stroke",
+			"stylers": [
+				{
+				"color": "#dcd2be"
+				}
+			]
+			},
+			{
+			"featureType": "administrative.land_parcel",
+			"elementType": "labels.text.fill",
+			"stylers": [
+				{
+				"color": "#ae9e90"
+				}
+			]
+			},
+			{
+			"featureType": "landscape.natural",
+			"elementType": "geometry",
+			"stylers": [
+				{
+				"color": "#dfd2ae"
+				}
+			]
+			},
+			{
+			"featureType": "poi",
+			"elementType": "geometry",
+			"stylers": [
+				{
+				"color": "#dfd2ae"
+				}
+			]
+			},
+			{
+			"featureType": "poi",
+			"elementType": "labels.text.fill",
+			"stylers": [
+				{
+				"color": "#93817c"
+				}
+			]
+			},
+			{
+			"featureType": "poi.park",
+			"elementType": "geometry.fill",
+			"stylers": [
+				{
+				"color": "#a5b076"
+				}
+			]
+			},
+			{
+			"featureType": "poi.park",
+			"elementType": "labels.text.fill",
+			"stylers": [
+				{
+				"color": "#447530"
+				}
+			]
+			},
+			{
+			"featureType": "road",
+			"elementType": "geometry",
+			"stylers": [
+				{
+				"color": "#f5f1e6"
+				}
+			]
+			},
+			{
+			"featureType": "road.arterial",
+			"elementType": "geometry",
+			"stylers": [
+				{
+				"color": "#fdfcf8"
+				}
+			]
+			},
+			{
+			"featureType": "road.highway",
+			"elementType": "geometry",
+			"stylers": [
+				{
+				"color": "#f8c967"
+				}
+			]
+			},
+			{
+			"featureType": "road.highway",
+			"elementType": "geometry.stroke",
+			"stylers": [
+				{
+				"color": "#e9bc62"
+				}
+			]
+			},
+			{
+			"featureType": "road.highway.controlled_access",
+			"elementType": "geometry",
+			"stylers": [
+				{
+				"color": "#e98d58"
+				}
+			]
+			},
+			{
+			"featureType": "road.highway.controlled_access",
+			"elementType": "geometry.stroke",
+			"stylers": [
+				{
+				"color": "#db8555"
+				}
+			]
+			},
+			{
+			"featureType": "road.local",
+			"elementType": "labels.text.fill",
+			"stylers": [
+				{
+				"color": "#806b63"
+				}
+			]
+			},
+			{
+			"featureType": "transit.line",
+			"elementType": "geometry",
+			"stylers": [
+				{
+				"color": "#dfd2ae"
+				}
+			]
+			},
+			{
+			"featureType": "transit.line",
+			"elementType": "labels.text.fill",
+			"stylers": [
+				{
+				"color": "#8f7d77"
+				}
+			]
+			},
+			{
+			"featureType": "transit.line",
+			"elementType": "labels.text.stroke",
+			"stylers": [
+				{
+				"color": "#ebe3cd"
+				}
+			]
+			},
+			{
+			"featureType": "transit.station",
+			"elementType": "geometry",
+			"stylers": [
+				{
+				"color": "#dfd2ae"
+				}
+			]
+			},
+			{
+			"featureType": "water",
+			"elementType": "geometry.fill",
+			"stylers": [
+				{
+				"color": "#b9d3c2"
+				}
+			]
+			},
+			{
+			"featureType": "water",
+			"elementType": "labels.text.fill",
+			"stylers": [
+				{
+				"color": "#92998d"
+				}
+			]
+			}
+		];
+
+		let options = {
+			zoom: 13,
+			center: new google.maps.LatLng(46.125312, 7.728664),
+			heading: 90,
+			styles: mapStyleJson,
+			scrollwheel: false,
+			disableDefaultUI: false,
+			draggableCursor: "url('data:image/png;base64,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'), auto"
+		};
+		window.map = new google.maps.Map(element, options);
+
+
+		// add custom Line Drawings
+		// https://developers.google.com/maps/documentation/javascript/reference?#IconSequence
+		let iconsequ = [];
+		// SymbolPath https://developers.google.com/maps/documentation/javascript/reference?#SymbolPath
+		let circle = {
+			"path": "M -2,0 C -1.947018,-2.2209709 1.9520943,-2.1262691 2,0.00422057 2.0378955,1.3546185 1.5682108,2.0631345 1.4372396e-8,2.0560929 -1.7155482,2.0446854 -1.9145886,1.0142836 -2,0.06735507 Z",
+			"fillColor": "#ff0024",
+			"fillOpacity": 0.8,
+			"strokeColor": "#ff0024",
+			"strokeWeight": 20,
+			"scale": 1
+		};
+
+		let redFlags = {
+			"path": "M 2.0705605e-7,-5.2525377 A 10.555839,5.2525377 0 0 1 10.555839,-1.8855526e-8 10.555839,5.2525377 0 0 1 2.8284261e-7,5.2525377 L 0,0 Z",
+			"fillColor": "#f17d62",
+			"fillOpacity": 1,
+			"strokeColor": "#f17d62",
+			"strokeWeight": 1,
+			"scale": 1
+		};
+
+		let greenFlags = {
+			"path": "M 2.0705605e-7,-5.2525377 A 10.555839,5.2525377 0 0 1 10.555839,-1.8855526e-8 10.555839,5.2525377 0 0 1 2.8284261e-7,5.2525377 L 0,0 Z",
+			"fillColor": "#88bd8a",
+			"fillOpacity": 1,
+			"strokeColor": "#88bd8a",
+			"strokeWeight": 1,
+			"scale": 1
+		};
+
+		let yellowFlags = {
+			"path": "M 2.0705605e-7,-5.2525377 A 10.555839,5.2525377 0 0 1 10.555839,-1.8855526e-8 10.555839,5.2525377 0 0 1 2.8284261e-7,5.2525377 L 0,0 Z",
+			"fillColor": "#e9d66f",
+			"fillOpacity": 1,
+			"strokeColor": "#e9d66f",
+			"strokeWeight": 1,
+			"scale": 1
+		};
+
+		let blueFlags = {
+			"path": "M 2.0705605e-7,-5.2525377 A 10.555839,5.2525377 0 0 1 10.555839,-1.8855526e-8 10.555839,5.2525377 0 0 1 2.8284261e-7,5.2525377 L 0,0 Z",
+			"fillColor": "#708cbd",
+			"fillOpacity": 1,
+			"strokeColor": "#708cbd",
+			"strokeWeight": 1,
+			"scale": 1
+		};
+
+		let whiteFlags = {
+			"path": "M 2.0705605e-7,-5.2525377 A 10.555839,5.2525377 0 0 1 10.555839,-1.8855526e-8 10.555839,5.2525377 0 0 1 2.8284261e-7,5.2525377 L 0,0 Z",
+			"fillColor": "#d5d5d7",
+			"fillOpacity": 1,
+			"strokeColor": "#d5d5d7",
+			"strokeWeight": 1,
+			"scale": 1
+		};
+
+		// add Point at the start of the Line
+		iconsequ.push(
+		{
+			icon: circle,
+			offset: "0%",
+			repeat: "0"
+		});
+
+		// add Point at the end of the Line
+		iconsequ.push(
+		{
+			icon: circle,
+			offset: "100%",
+			repeat: "0"
+		});
+
+		iconsequ.push(
+		{
+			icon: redFlags,
+			offset: "0px",
+			repeat: "60px"
+		});
+
+		iconsequ.push(
+		{
+			icon: greenFlags,
+			offset: "15px",
+			repeat: "60px"
+		});
+
+		iconsequ.push(
+		{
+			icon: yellowFlags,
+			offset: "30px",
+			repeat: "60px"
+		});
+
+		iconsequ.push(
+		{
+			icon: blueFlags,
+			offset: "45px",
+			repeat: "60px"
+		});
+
+		iconsequ.push(
+		{
+			icon: whiteFlags,
+			offset: "60px",
+			repeat: "60px"
+		});
+
+		// create polyline between points, add start and end point
+		// https://developers.google.com/maps/documentation/javascript/symbols
+		let poly = new google.maps.Polyline(
+		{
+			path: [{"lat": 46.101707, "lng": 7.715639}, {"lat": 46.125801, "lng": 7.745851}],
+			strokeColor: "#f45f42",
+			strokeOpacity: 1.0,
+			strokeWeight: 1,
+			icons: iconsequ
+		});
+
+		poly.setMap(window.map);
+	</script>
+</body>
+</html>
