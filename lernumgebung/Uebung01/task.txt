@@ -1,2 +1,3 @@
 HTML:
 - only add classes, no new HTML Elements
+- no js allowed
