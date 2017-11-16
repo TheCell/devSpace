@@ -1,0 +1,9 @@
+body
+{
+	margin: 0;
+}
+
+#pageContent > div
+{
+	margin-top: 50px;
+}
