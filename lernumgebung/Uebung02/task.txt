@@ -5,3 +5,5 @@ HTML:
 Tips:
 - use display: flex (link in url's)
 - use css Selectors (link in url's)
+- Google css zebra stripping
+- Google div always at top of page
