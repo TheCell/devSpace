@@ -1,3 +1,7 @@
 HTML:
 - don't touch the html
 - no js allowed
+
+Tips:
+- use display: flex (link in url's)
+- use css Selectors (link in url's)
