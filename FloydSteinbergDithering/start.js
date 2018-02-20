@@ -24,7 +24,7 @@ p.draw = function ()
 let outputSketch = function (p)
 {
 	let img = null;
-	let fsd = new floydSteinbergDithering(4);
+	let fsd = new floydSteinbergDithering(1);
 
 	p.preload = function ()
 	{
@@ -34,8 +34,8 @@ let outputSketch = function (p)
 	p.setup = function ()
 	{
 		p.createCanvas(img.width / 2, img.height / 2);
-		// p.image(img, 0, 0, img.width / 2, img.height / 2);
 		img = fsd.getImage(img);
+		p.noSmooth();
 		p.image(img, 0, 0, img.width / 2, img.height / 2);
 	};
 

@@ -9,7 +9,7 @@ class floydSteinbergDithering
 		}
 		else
 		{
-			this.colorGapSize = 256;
+			this.colorGapSize = 255;
 		}
 		this.convertToGrayscale = grayscale;
 	}
@@ -53,11 +53,6 @@ class floydSteinbergDithering
 			newPixelG = this.getClosestPaletteColor(oldPixelG);
 			newPixelB = this.getClosestPaletteColor(oldPixelB);
 			// newPixelA = this.getClosestPaletteColor(oldPixelA);
-
-			if (i < 2000)
-			{
-				console.log(newPixelR);
-			}
 
 			quantErrorR = oldPixelR - newPixelR;
 			quantErrorG = oldPixelG - newPixelG;
