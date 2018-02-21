@@ -42,13 +42,11 @@ let outputSketch = function (p)
 		let fsd = new floydSteinbergDithering(factor);
 		img = fsd.getImage(img);
 		p.image(img, 0, 0, img.width / 2, img.height / 2);
-		console.log("drawing");
 	};
 
 	p.mousePressed = function ()
 	{
 		factor = (factor * 2) % 255;
-		console.log("mouse pressed, factor: " + factor);
 		img = p.loadImage("images/snowboardLittle.jpg");
 	};
 };
