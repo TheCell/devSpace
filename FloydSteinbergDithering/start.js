@@ -24,7 +24,7 @@ p.draw = function ()
 let outputSketch = function (p)
 {
 	let img = null;
-	let fsd = new floydSteinbergDithering(1);
+	let factor = 1;
 
 	p.preload = function ()
 	{
@@ -34,25 +34,28 @@ let outputSketch = function (p)
 	p.setup = function ()
 	{
 		p.createCanvas(img.width / 2, img.height / 2);
-		img = fsd.getImage(img);
 		p.noSmooth();
-		p.image(img, 0, 0, img.width / 2, img.height / 2);
 	};
 
 	p.draw = function ()
 	{
-
+		let fsd = new floydSteinbergDithering(factor);
+		img = fsd.getImage(img);
+		p.image(img, 0, 0, img.width / 2, img.height / 2);
+		console.log("drawing");
 	};
 
-	// p.mousePressed = function ()
-	// {
-	// 	gray = (gray + 16) % 256;
-	// };
+	p.mousePressed = function ()
+	{
+		factor = (factor * 2) % 255;
+		console.log("mouse pressed, factor: " + factor);
+		img = p.loadImage("images/snowboardLittle.jpg");
+	};
 };
 
-let inputImageDiv = document.getElementById('inputImageDiv');
-let outputImageDiv = document.getElementById('outputImageDiv');
+let inputImageCanvas = document.getElementById('inputImageCanvas');
+let outputImageCanvas = document.getElementById('outputImageCanvas');
 
-new p5(inputSketch, inputImageDiv);
-new p5(outputSketch, outputImageDiv);
+new p5(inputSketch, 'inputImageDiv');
+new p5(outputSketch, 'outputImageDiv');
 
