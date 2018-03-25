@@ -1,6 +1,11 @@
+import java.util.ArrayList;
+import java.util.Iterator;
 import processing.dxf.*;
 
+private int timeBetweenPointsMS = 15;
+private long timeLastPoint = System.currentTimeMillis();
 private boolean trackMouseMove = false;
+private boolean trackingInProgress = false;
 private ArrayList<MouseCoordinates> mouseCoords = null;
 private ArrayList<MouseCoordinates> alreadyDrawnPoints = null;
 
@@ -17,31 +22,77 @@ void setup()
 
 void draw()
 {
-    
+    mouseTrackingInterval();
+    drawPointsOnCanvas();
 }
 
 void mouseClicked()
 {
-    this.trackMouseMove = !this.trackMouseMove;
+    this.trackingInProgress = !this.trackingInProgress;
 }
 
 void mouseMoved()
 {
-  
+    mouseSafeTimer();
 }
 
 void mouseSafeTimer()
 {
-    if (!this.trackMouseMove)
+    if (!this.trackMouseMove || !this.trackingInProgress)
     {
-      return;
+        return;
     }
 
     safeMouseCoords();
-    trackMouseMove = false;
+    this.trackMouseMove = false;
 }
 
 void safeMouseCoords()
 {
     this.mouseCoords.add(new MouseCoordinates(mouseX, mouseY));
+}
+
+void drawPointsOnCanvas()
+{
+    updateCoordArrays();
+    Iterator<MouseCoordinates> iterator = this.alreadyDrawnPoints.iterator();
+    
+    while (iterator.hasNext())
+    {
+        MouseCoordinates currentCoords = iterator.next();
+        drawCircle(currentCoords.x, currentCoords.y);
+    }
+}
+
+void mouseTrackingInterval()
+{
+    if (this.trackMouseMove)
+    {
+        return;
+    }
+    
+    if ((timeLastPoint + timeBetweenPointsMS) < System.currentTimeMillis())
+    {
+        this.trackMouseMove = true;
+        timeLastPoint = System.currentTimeMillis();
+    }
+}
+
+private ArrayList<MouseCoordinates> getAndResetNewCoords()
+{
+    ArrayList<MouseCoordinates> newCoordinates = mouseCoords; 
+    this.mouseCoords = new ArrayList<MouseCoordinates>(); 
+    return newCoordinates;
+}
+
+private void updateCoordArrays()
+{
+    this.alreadyDrawnPoints.addAll(getAndResetNewCoords());
+}
+
+private void drawCircle(float x, float y)
+{
+    float width = 10.0f;
+    float height = 10.0f;
+    ellipse(x, y, width, height);
 }
