@@ -24,6 +24,7 @@ void draw()
 {
     mouseTrackingInterval();
     drawPointsOnCanvas();
+    mouseSafeTimer();
 }
 
 void mouseClicked()
@@ -33,7 +34,7 @@ void mouseClicked()
 
 void mouseMoved()
 {
-    mouseSafeTimer();
+    
 }
 
 void mouseSafeTimer()
@@ -61,6 +62,7 @@ void drawPointsOnCanvas()
     {
         MouseCoordinates currentCoords = iterator.next();
         drawCircle(currentCoords.x, currentCoords.y);
+        drawRectangle(currentCoords.x, currentCoords.y);
     }
 }
 
@@ -95,4 +97,11 @@ private void drawCircle(float x, float y)
     float width = 10.0f;
     float height = 10.0f;
     ellipse(x, y, width, height);
+}
+
+private void drawRectangle(float x, float y)
+{
+    float width = 50.0f;
+    float height = 10.0f;
+    rect( x, y - height / 2, width, height);
 }
