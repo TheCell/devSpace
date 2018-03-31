@@ -55,7 +55,7 @@ void keyTyped()
     // a
     if (int(key) == 97)
     {
-        save( seed + ".tga");
+        save( seed + ".png");
     }
 }
 

@@ -25,4 +25,4 @@ A Blogpost about it: http://blog.thecell.eu/customlines-for-google-maps-polyline
 <img src="https://raw.githubusercontent.com/TheCell/devSpace/master/googleMapsExample/images/mapLittle.PNG" height="300" alt="Google Maps With a Polyline" />
 
 pointflowForSTUTPROTX
-<img src="https://raw.githubusercontent.com/TheCell/devSpace/master/pointflowForSTUTPROTX/137380416.tga" height="300" alt="points Flowing" />
+<img src="https://raw.githubusercontent.com/TheCell/devSpace/master/pointflowForSTUTPROTX/567316928.png" height="300" alt="points Flowing" />
