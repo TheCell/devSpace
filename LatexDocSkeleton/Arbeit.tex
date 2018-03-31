@@ -1,0 +1,91 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+
+
+\usepackage[numbers]{natbib}
+
+\bibliographystyle{plainnat}
+\usepackage[colorlinks,allcolors=blue,breaklinks = true]{hyperref}
+
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{float}
+\usepackage[acronym, automake]{glossaries}
+\usepackage{subfigure}
+
+% math libs
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+
+% Code formating
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+%configs
+\graphicspath{ {Bilder/} }
+\makeglossaries
+\loadglsentries{glossary}
+
+%Metadata
+\title{TBD}
+\author{Simon Hischier}
+\date{Juni 2017}
+
+\begin{document}
+
+%Titlepage
+\begin{titlepage}
+%\maketitle
+\centering
+\vspace{1cm}
+	{\scshape\LARGE Fachhochschule Luzern HSLU \par}
+	\vspace{1cm}
+	{\scshape\Large Studiengang Digital Ideation, Bachelor \par}
+	
+	{\scshape\Large 4. Semester\par}
+	\vspace{1.5cm}
+	{\huge\bf TBD\par}
+	
+	
+	\vspace{10cm}
+	{\Large Simon Hischier\par}
+	\vfill
+
+% Bottom of the page
+	{\large \today\par}
+	
+\end{titlepage}
+
+%Table of Contents Page
+\renewcommand{\contentsname}{Inhalt}
+\tableofcontents
+\newpage
+
+%First real page
+\section{Abstract}
+
+\end{document}
