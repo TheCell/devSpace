@@ -24,8 +24,6 @@ void setup()
 
 void draw()
 {
-
-    //drawNoise();
     clear();
     drawWithOption(false);
     //drawNoise();
@@ -64,7 +62,9 @@ void drawStamp(int x, int y)
 
 void drawStampCommand(int x, int y)
 {
-    line( x, y, x + 100, y + 100);
+    stroke(0);
+    strokeWeight(1);
+    line( x, y, x, y + 100);
 }
 
 void drawWithOption(boolean isDxfExport)
@@ -110,7 +110,6 @@ void setupAndInitArray()
             newYVal = newYVal + (sin(map(noise(newXVal * noiseFactor,newYVal * noiseFactor), 0.0f, 1.0f, 0.0f, (float) Math.PI * 2)) * movespeed);
             
             middlepointCoordinates[i * tailLength + j] = new MiddlepointCoordinates((int) newXVal, (int) newYVal);
-            // MiddlepointCoordinates mpcnew = middlepointCoordinates[i * tailLength + j];
         }
     }
 }
@@ -137,9 +136,8 @@ void drawNoise()
 void saveAsDXF()
 {
     print("save as " + seed + ".dxf");
-    //clear();
-    fill(255);
     beginRaw(DXF, seed + ".dxf");
+    clear();
     drawWithOption(true);
     endRaw();
 }
