@@ -136,7 +136,7 @@ void drawNoise()
 
 void saveAsDXF()
 {
-    print("save as dxf");
+    print("save as " + seed + ".dxf");
     //clear();
     fill(255);
     beginRaw(DXF, seed + ".dxf");
