@@ -1,3 +1,5 @@
+import processing.dxf.*;
+
 int canvasSizeX = 800;
 int canvasSizeY = 800;
 int numberOfAgents = 70;
@@ -10,12 +12,11 @@ MiddlepointCoordinates[] middlepointCoordinates = null;
 
 void settings()
 {
-    size(canvasSizeX, canvasSizeY);
+    size(canvasSizeX, canvasSizeY, P2D);
 }
 
 void setup()
-{   
-    //noiseDetail(8, 1);
+{
     fill(255);
     noStroke();
     setupAndInitArray();
@@ -24,14 +25,9 @@ void setup()
 void draw()
 {
 
-    drawNoise();
+    //drawNoise();
     clear();
-    for (int i = 0; i < middlepointCoordinates.length; i++)
-    {
-        MiddlepointCoordinates mpc = middlepointCoordinates[i];
-        drawStamp(mpc.x, mpc.y);
-        //System.out.println(mpc.x + "," + mpc.y);
-    }
+    drawWithOption(false);
     //drawNoise();
     
 }
@@ -55,6 +51,7 @@ void keyTyped()
     // a
     if (int(key) == 97)
     {
+        print("save as " + seed + ".png");
         save( seed + ".png");
     }
 }
@@ -63,6 +60,33 @@ void drawStamp(int x, int y)
 {
     int radius = 4;
     ellipse( x, y, radius, radius);
+}
+
+void drawStampCommand(int x, int y)
+{
+    line( x, y, x + 100, y + 100);
+}
+
+void drawWithOption(boolean isDxfExport)
+{
+    if (isDxfExport)
+    {
+        for (int i = 0; i < middlepointCoordinates.length; i++)
+        {
+            MiddlepointCoordinates mpc = middlepointCoordinates[i];
+            drawStampCommand(mpc.x, mpc.y);
+            //System.out.println(mpc.x + "," + mpc.y);
+        }
+    }
+    else
+    {
+        for (int i = 0; i < middlepointCoordinates.length; i++)
+        {
+            MiddlepointCoordinates mpc = middlepointCoordinates[i];
+            drawStamp(mpc.x, mpc.y);
+            //System.out.println(mpc.x + "," + mpc.y);
+        }
+    }
 }
 
 void setupAndInitArray()
@@ -86,7 +110,7 @@ void setupAndInitArray()
             newYVal = newYVal + (sin(map(noise(newXVal * noiseFactor,newYVal * noiseFactor), 0.0f, 1.0f, 0.0f, (float) Math.PI * 2)) * movespeed);
             
             middlepointCoordinates[i * tailLength + j] = new MiddlepointCoordinates((int) newXVal, (int) newYVal);
-            MiddlepointCoordinates mpcnew = middlepointCoordinates[i * tailLength + j];
+            // MiddlepointCoordinates mpcnew = middlepointCoordinates[i * tailLength + j];
         }
     }
 }
@@ -112,5 +136,10 @@ void drawNoise()
 
 void saveAsDXF()
 {
-    print("should save as dxf");
+    print("save as dxf");
+    //clear();
+    fill(255);
+    beginRaw(DXF, seed + ".dxf");
+    drawWithOption(true);
+    endRaw();
 }
