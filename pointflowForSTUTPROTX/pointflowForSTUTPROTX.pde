@@ -1,4 +1,5 @@
 import processing.dxf.*;
+import processing.svg.*;
 
 int canvasSizeX = 800;
 int canvasSizeY = 800;
@@ -51,6 +52,12 @@ void keyTyped()
     {
         print("save as " + seed + ".png");
         save( seed + ".png");
+    }
+    
+    // d
+    if (int(key) == 100)
+    {
+        saveAsSVG();
     }
 }
 
@@ -136,8 +143,18 @@ void drawNoise()
 void saveAsDXF()
 {
     print("save as " + seed + ".dxf");
-    beginRaw(DXF, seed + ".dxf");
     clear();
     drawWithOption(true);
+    beginRaw(DXF, seed + ".dxf");
+    endRaw();
+}
+
+void saveAsSVG()
+{
+    clear();    
+    print("save as " + seed + ".svg");
+    clear();
+    drawWithOption(true);
+    beginRaw(SVG, seed + ".svg");
     endRaw();
 }
