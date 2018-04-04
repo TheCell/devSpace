@@ -82,7 +82,8 @@ void drawStampCommand(int x, int y)
 
 String writeStampAsSVG(int x, int y)
 {
-    return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + x + "\" y2=\"" + (y + 100) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+    return "<polyline points=\"" + x + "," + y + " " + x + "," + (y + 100) + " " + x + "," + (y + 110) + " " + x + "," + (y + 120) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+    //return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + x + "\" y2=\"" + (y + 100) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
 }
 
 void drawWithOption(boolean isDxfExport)
