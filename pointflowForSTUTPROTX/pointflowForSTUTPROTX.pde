@@ -59,6 +59,12 @@ void keyTyped()
     {
         saveAsSVG();
     }
+    
+    // f
+    if (int(key) == 102)
+    {
+        saveAsText();
+    }
 }
 
 void drawStamp(int x, int y)
@@ -72,6 +78,11 @@ void drawStampCommand(int x, int y)
     stroke(0);
     strokeWeight(1);
     line( x, y, x, y + 100);
+}
+
+String writeStampAsSVG(int x, int y)
+{
+    return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + x + "\" y2=\"" + (y + 100) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
 }
 
 void drawWithOption(boolean isDxfExport)
@@ -94,6 +105,24 @@ void drawWithOption(boolean isDxfExport)
             //System.out.println(mpc.x + "," + mpc.y);
         }
     }
+}
+
+void exportAsText()
+{
+    String svg = "";
+    svg = "<svg height=\"" + canvasSizeX + "\" width=\"" + canvasSizeY + "\">";
+    
+    for (int i = 0; i < middlepointCoordinates.length; i++)
+    {
+        MiddlepointCoordinates mpc = middlepointCoordinates[i];
+        svg += writeStampAsSVG(mpc.x, mpc.y);
+    }
+  
+    svg += "</svg>";
+    
+    String[] svgArr = new String[1];
+    svgArr[0] = svg;
+    saveStrings(seed+ ".txt", svgArr);
 }
 
 void setupAndInitArray()
@@ -157,4 +186,10 @@ void saveAsSVG()
     drawWithOption(true);
     beginRaw(SVG, seed + ".svg");
     endRaw();
+}
+
+void saveAsText()
+{
+    print("save as " + seed + ".txt");
+    exportAsText();
 }
