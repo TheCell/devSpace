@@ -28,7 +28,6 @@ void draw()
     clear();
     drawWithOption(false);
     //drawNoise();
-    
 }
 
 void mouseClicked()
@@ -86,6 +85,26 @@ String writeStampAsSVG(int x, int y)
     //return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + x + "\" y2=\"" + (y + 100) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
 }
 
+String writeStampAsSVG(int x, int y, float angle)
+{
+    return "<polyline points=\"" + x + "," + y + " " + (x + 100 * cos(angle)) + "," + (y + 100 * sin(angle)) + " " + (x + 110 * cos(angle)) + "," + (y + 110 * sin(angle)) + " " + (x + 120 * cos(angle)) + "," + (y + 120 * sin(angle)) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+    //return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + x + "\" y2=\"" + (y + 100) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+}
+
+// stampindex is 1, 2, 3 etc.
+String writeStampAsSVG(int x, int y, float angle, int stampindex)
+{
+    return "<polyline points=\"" + x + "," + y + " " + (x + 100 * cos(angle)) + "," + (y + 100 * sin(angle)) + " " + (x + (100 + stampindex * 10) * cos(angle)) + "," + (y + (100 + stampindex * 10) * sin(angle)) + " " + (x + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+    //return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + x + "\" y2=\"" + (y + 100) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+}
+
+// stampindex is 1, 2, 3 etc.
+String writeStampAsSVG(int x, int y, float angle, int stampindex, boolean isDebug)
+{
+    return "<polyline points=\"" + x + "," + y + " " + (x + 100 * cos(angle)) + "," + (y + 100 * sin(angle)) + " " + (x + (100 + stampindex * 10) * cos(angle)) + "," + (y + (100 + stampindex * 10) * sin(angle)) + " " + (x + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(0,0,255);stroke-width:5\" />";
+    //return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + x + "\" y2=\"" + (y + 100) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+}
+
 void drawWithOption(boolean isDxfExport)
 {
     if (isDxfExport)
@@ -112,11 +131,15 @@ void exportAsText()
 {
     String svg = "";
     svg = "<svg height=\"" + canvasSizeX + "\" width=\"" + canvasSizeY + "\">";
+    // example line for rescale
+    svg += writeStampAsSVG(0, 0, (float) Math.PI * 1/2, 1, true);
+    svg += writeStampAsSVG(0, 0, (float) Math.PI * 3/4, 2, true);
     
     for (int i = 0; i < middlepointCoordinates.length; i++)
     {
         MiddlepointCoordinates mpc = middlepointCoordinates[i];
-        svg += writeStampAsSVG(mpc.x, mpc.y);
+        svg += writeStampAsSVG(mpc.x, mpc.y, mpc.angle + (float) Math.PI * 1/2, 1);
+        svg += writeStampAsSVG(mpc.x, mpc.y, mpc.angle - (float) Math.PI * 1/2, 2);
     }
   
     svg += "</svg>";
@@ -135,18 +158,21 @@ void setupAndInitArray()
     {
         int xVal = (int) random(canvasSizeX);
         int yVal = (int) random(canvasSizeY);
-        MiddlepointCoordinates mpc = new MiddlepointCoordinates(xVal, yVal);
+        MiddlepointCoordinates mpc = new MiddlepointCoordinates(xVal, yVal, map(noise(xVal * noiseFactor,yVal * noiseFactor), 0.0f, 1.0f, 0.0f, (float) Math.PI * 2));
+
         middlepointCoordinates[i * tailLength] = mpc;
         
         float newXVal = mpc.x;
         float newYVal = mpc.y;
+        float angle = 0.0f;
         
         for (int j = 1; j < tailLength; j++)
         {
-            newXVal = newXVal + (cos(map(noise(newXVal * noiseFactor,newYVal * noiseFactor), 0.0f, 1.0f, 0.0f, (float) Math.PI * 2)) * movespeed);
-            newYVal = newYVal + (sin(map(noise(newXVal * noiseFactor,newYVal * noiseFactor), 0.0f, 1.0f, 0.0f, (float) Math.PI * 2)) * movespeed);
+            angle = map(noise(newXVal * noiseFactor,newYVal * noiseFactor), 0.0f, 1.0f, 0.0f, (float) Math.PI * 2);
+            newXVal = newXVal + (cos(angle) * movespeed);
+            newYVal = newYVal + (sin(angle) * movespeed);
             
-            middlepointCoordinates[i * tailLength + j] = new MiddlepointCoordinates((int) newXVal, (int) newYVal);
+            middlepointCoordinates[i * tailLength + j] = new MiddlepointCoordinates((int) newXVal, (int) newYVal, angle);
         }
     }
 }
