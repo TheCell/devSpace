@@ -3,9 +3,9 @@ import processing.svg.*;
 
 int canvasSizeX = 800;
 int canvasSizeY = 800;
-int numberOfAgents = 70;
-int tailLength = 50;
-int movespeed = 4;
+int numberOfAgents = 1;
+int tailLength = 16;
+int movespeed = 250;
 float noiseFactor = 0.005;
 int seed = (int) random(999999999);
 
@@ -94,15 +94,54 @@ String writeStampAsSVG(int x, int y, float angle)
 // stampindex is 1, 2, 3 etc.
 String writeStampAsSVG(int x, int y, float angle, int stampindex)
 {
-    return "<polyline points=\"" + x + "," + y + " " + (x + 100 * cos(angle)) + "," + (y + 100 * sin(angle)) + " " + (x + (100 + stampindex * 10) * cos(angle)) + "," + (y + (100 + stampindex * 10) * sin(angle)) + " " + (x + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
-    //return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + x + "\" y2=\"" + (y + 100) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+    float xOffset = 250 * cos(angle);
+    float yOffset = 250 * sin(angle);
+    
+    if (stampindex == 1)
+    {
+        return "<polyline points=\"" + (x - xOffset) + "," + (y - yOffset) + " " + (x - xOffset + 100 * cos(angle)) + "," + (y - yOffset + 100 * sin(angle)) + " " + (x - xOffset + (100 + stampindex * 10) * cos(angle)) + "," + (y - yOffset + (100 + stampindex * 10) * sin(angle)) + " " + (x - xOffset + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y - yOffset + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+        //return "<polyline points=\"" + x + "," + y + " " + (x + 100 * cos(angle)) + "," + (y + 100 * sin(angle)) + " " + (x + (100 + stampindex * 10) * cos(angle)) + "," + (y + (100 + stampindex * 10) * sin(angle)) + " " + (x + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(0,0,255);stroke-width:5\" />";
+        //return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + x + "\" y2=\"" + (y + 100) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+    }
+    else
+    {
+        return "<polyline points=\"" + (x - xOffset) + "," + (y - yOffset) + " " + (x - xOffset + 100 * cos(angle)) + "," + (y - yOffset + 100 * sin(angle)) + " " + (x - xOffset + (100 + stampindex * 10) * cos(angle)) + "," + (y - yOffset + (100 + stampindex * 10) * sin(angle)) + " " + (x - xOffset + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y - yOffset + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(0,255,0);stroke-width:1\" />";
+        //return "<polyline points=\"" + x + "," + y + " " + (x + 100 * cos(angle)) + "," + (y + 100 * sin(angle)) + " " + (x + (100 + stampindex * 10) * cos(angle)) + "," + (y + (100 + stampindex * 10) * sin(angle)) + " " + (x + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(0,0,255);stroke-width:5\" />";
+        //return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + x + "\" y2=\"" + (y + 100) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+    }
 }
 
 // stampindex is 1, 2, 3 etc.
 String writeStampAsSVG(int x, int y, float angle, int stampindex, boolean isDebug)
 {
-    return "<polyline points=\"" + x + "," + y + " " + (x + 100 * cos(angle)) + "," + (y + 100 * sin(angle)) + " " + (x + (100 + stampindex * 10) * cos(angle)) + "," + (y + (100 + stampindex * 10) * sin(angle)) + " " + (x + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(0,0,255);stroke-width:5\" />";
-    //return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + x + "\" y2=\"" + (y + 100) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+    if (isDebug)
+    {
+        x = 0;
+        y = 0;
+        float xOffset = 250 * cos(angle);
+        float yOffset = 250 * sin(angle);
+        
+        return "<polyline points=\"" + (x - xOffset) + "," + (y - yOffset) + " " + (x - xOffset + 100 * cos(angle)) + "," + (y - yOffset + 100 * sin(angle)) + " " + (x - xOffset + (100 + stampindex * 10) * cos(angle)) + "," + (y - yOffset + (100 + stampindex * 10) * sin(angle)) + " " + (x - xOffset + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y - yOffset + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(0,0,255);stroke-width:5\" />";
+        //return "<polyline points=\"" + x + "," + y + " " + (x + 100 * cos(angle)) + "," + (y + 100 * sin(angle)) + " " + (x + (100 + stampindex * 10) * cos(angle)) + "," + (y + (100 + stampindex * 10) * sin(angle)) + " " + (x + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(0,0,255);stroke-width:5\" />";
+        //return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + x + "\" y2=\"" + (y + 100) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+    }
+    else
+    {
+        float xOffset = 250 * cos(angle);
+        float yOffset = 250 * sin(angle);
+        if (stampindex == 1)
+        {
+            return "<polyline points=\"" + (x - xOffset) + "," + (y - yOffset) + " " + (x - xOffset + 100 * cos(angle)) + "," + (y - yOffset + 100 * sin(angle)) + " " + (x - xOffset + (100 + stampindex * 10) * cos(angle)) + "," + (y - yOffset + (100 + stampindex * 10) * sin(angle)) + " " + (x - xOffset + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y - yOffset + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+            //return "<polyline points=\"" + x + "," + y + " " + (x + 100 * cos(angle)) + "," + (y + 100 * sin(angle)) + " " + (x + (100 + stampindex * 10) * cos(angle)) + "," + (y + (100 + stampindex * 10) * sin(angle)) + " " + (x + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(0,0,255);stroke-width:5\" />";
+            //return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + x + "\" y2=\"" + (y + 100) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+        }
+        else
+        {
+            return "<polyline points=\"" + (x - xOffset) + "," + (y - yOffset) + " " + (x - xOffset + 100 * cos(angle)) + "," + (y - yOffset + 100 * sin(angle)) + " " + (x - xOffset + (100 + stampindex * 10) * cos(angle)) + "," + (y - yOffset + (100 + stampindex * 10) * sin(angle)) + " " + (x - xOffset + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y - yOffset + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(0,255,0);stroke-width:1\" />";
+            //return "<polyline points=\"" + x + "," + y + " " + (x + 100 * cos(angle)) + "," + (y + 100 * sin(angle)) + " " + (x + (100 + stampindex * 10) * cos(angle)) + "," + (y + (100 + stampindex * 10) * sin(angle)) + " " + (x + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(0,0,255);stroke-width:5\" />";
+            //return "<line x1=\"" + x + "\" y1=\"" + y + "\" x2=\"" + x + "\" y2=\"" + (y + 100) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
+        }
+    }
 }
 
 void drawWithOption(boolean isDxfExport)
@@ -131,9 +170,6 @@ void exportAsText()
 {
     String svg = "";
     svg = "<svg height=\"" + canvasSizeX + "\" width=\"" + canvasSizeY + "\">";
-    // example line for rescale
-    svg += writeStampAsSVG(0, 0, (float) Math.PI * 1/2, 1, true);
-    svg += writeStampAsSVG(0, 0, (float) Math.PI * 3/4, 2, true);
     
     for (int i = 0; i < middlepointCoordinates.length; i++)
     {
@@ -141,7 +177,10 @@ void exportAsText()
         svg += writeStampAsSVG(mpc.x, mpc.y, mpc.angle + (float) Math.PI * 1/2, 1);
         svg += writeStampAsSVG(mpc.x, mpc.y, mpc.angle - (float) Math.PI * 1/2, 2);
     }
-  
+    
+    // example line for rescale
+    svg += writeStampAsSVG(0, 0, (float) Math.PI * 1/2, 1, true);
+    svg += writeStampAsSVG(0, 0, (float) Math.PI * 3/2, 2, true);
     svg += "</svg>";
     
     String[] svgArr = new String[1];
