@@ -94,8 +94,8 @@ String writeStampAsSVG(int x, int y, float angle)
 // stampindex is 1, 2, 3 etc.
 String writeStampAsSVG(int x, int y, float angle, int stampindex)
 {
-    float xOffset = 250 * cos(angle);
-    float yOffset = 250 * sin(angle);
+    float xOffset = 220 * cos(angle);
+    float yOffset = 220 * sin(angle);
     
     if (stampindex == 1)
     {
@@ -118,8 +118,8 @@ String writeStampAsSVG(int x, int y, float angle, int stampindex, boolean isDebu
     {
         x = 0;
         y = 0;
-        float xOffset = 250 * cos(angle);
-        float yOffset = 250 * sin(angle);
+        float xOffset = 220 * cos(angle);
+        float yOffset = 220 * sin(angle);
         
         return "<polyline points=\"" + (x - xOffset) + "," + (y - yOffset) + " " + (x - xOffset + 100 * cos(angle)) + "," + (y - yOffset + 100 * sin(angle)) + " " + (x - xOffset + (100 + stampindex * 10) * cos(angle)) + "," + (y - yOffset + (100 + stampindex * 10) * sin(angle)) + " " + (x - xOffset + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y - yOffset + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(0,0,255);stroke-width:5\" />";
         //return "<polyline points=\"" + x + "," + y + " " + (x + 100 * cos(angle)) + "," + (y + 100 * sin(angle)) + " " + (x + (100 + stampindex * 10) * cos(angle)) + "," + (y + (100 + stampindex * 10) * sin(angle)) + " " + (x + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(0,0,255);stroke-width:5\" />";
@@ -127,8 +127,8 @@ String writeStampAsSVG(int x, int y, float angle, int stampindex, boolean isDebu
     }
     else
     {
-        float xOffset = 250 * cos(angle);
-        float yOffset = 250 * sin(angle);
+        float xOffset = 220 * cos(angle);
+        float yOffset = 220 * sin(angle);
         if (stampindex == 1)
         {
             return "<polyline points=\"" + (x - xOffset) + "," + (y - yOffset) + " " + (x - xOffset + 100 * cos(angle)) + "," + (y - yOffset + 100 * sin(angle)) + " " + (x - xOffset + (100 + stampindex * 10) * cos(angle)) + "," + (y - yOffset + (100 + stampindex * 10) * sin(angle)) + " " + (x - xOffset + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y - yOffset + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(255,0,0);stroke-width:1\" />";
