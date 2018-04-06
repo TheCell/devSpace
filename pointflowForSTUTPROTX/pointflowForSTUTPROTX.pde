@@ -1,10 +1,10 @@
 import processing.dxf.*;
 import processing.svg.*;
 
-int canvasSizeX = 800;
-int canvasSizeY = 800;
 // big stamp
 /*
+int canvasSizeX = 800;
+int canvasSizeY = 800;
 int numberOfAgents = 1;
 int tailLength = 16;
 int movespeed = 250;
@@ -12,11 +12,15 @@ float noiseFactor = 0.0005;
 */
 // little stamp
 /*
+int canvasSizeX = 2000;
+int canvasSizeY = 4000;
 int numberOfAgents = 50;
 int tailLength = 16;
 int movespeed = 45;
 float noiseFactor = 0.001;
 */
+int canvasSizeX = 800;
+int canvasSizeY = 800;
 int numberOfAgents = 1;
 int tailLength = 16;
 int movespeed = 250;
@@ -97,13 +101,22 @@ void drawStampCommand(int x, int y)
 String writeStampAsSVG(int x, int y, float angle, int stampindex)
 {
     // big stamp
+    /*
     float xOffset = 220 * cos(angle);
     float yOffset = 220 * sin(angle);
+    */
     // little stamp
     /*
     float xOffset = 50 * cos(angle);
     float yOffset = 50 * sin(angle);
     */
+    // little stamp NEW
+    /*
+    float xOffset = 0;
+    float yOffset = 0;
+    */
+    float xOffset = 220 * cos(angle);
+    float yOffset = 220 * sin(angle);
     
     if (stampindex == 1)
     {
@@ -127,13 +140,22 @@ String writeStampAsSVG(int x, int y, float angle, int stampindex, boolean isDebu
         x = 0;
         y = 0;
         // big stamp
+        /*
         float xOffset = 220 * cos(angle);
         float yOffset = 220 * sin(angle);
+        */
         // little stamp
         /*
         float xOffset = 50 * cos(angle);
         float yOffset = 50 * sin(angle);
         */
+        // little stamp NEW
+        /*
+        float xOffset = 0;
+        float yOffset = 0;
+        */
+        float xOffset = 220 * cos(angle);
+        float yOffset = 220 * sin(angle);
         
         return "<polyline points=\"" + (x + xOffset) + "," + (y + yOffset) + " " + (x + xOffset + 100 * cos(angle)) + "," + (y + yOffset + 100 * sin(angle)) + " " + (x + xOffset + (100 + stampindex * 10) * cos(angle)) + "," + (y + yOffset + (100 + stampindex * 10) * sin(angle)) + " " + (x + xOffset + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y + yOffset + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(0,0,255);stroke-width:5\" />";
         //return "<polyline points=\"" + x + "," + y + " " + (x + 100 * cos(angle)) + "," + (y + 100 * sin(angle)) + " " + (x + (100 + stampindex * 10) * cos(angle)) + "," + (y + (100 + stampindex * 10) * sin(angle)) + " " + (x + (100 + stampindex * 10 + 10) * cos(angle)) + "," + (y + (100 + stampindex * 10 + 10) * sin(angle)) + "\" style=\"stroke:rgb(0,0,255);stroke-width:5\" />";
@@ -173,13 +195,22 @@ void exportAsText()
     for (int i = 0; i < middlepointCoordinates.length; i++)
     {
         MiddlepointCoordinates mpc = middlepointCoordinates[i];
+        // for big stamp
+        /*
+        svg += writeStampAsSVG(mpc.x, mpc.y, mpc.angle + (float) Math.PI * 1/2, 2);
+        svg += writeStampAsSVG(mpc.x, mpc.y, mpc.angle - (float) Math.PI * 1/2, 2);
+        */
+        // for little stamp
+        /*
         svg += writeStampAsSVG(mpc.x, mpc.y, mpc.angle + (float) Math.PI * 1/2, 1);
+        */
+        svg += writeStampAsSVG(mpc.x, mpc.y, mpc.angle + (float) Math.PI * 1/2, 2);
         svg += writeStampAsSVG(mpc.x, mpc.y, mpc.angle - (float) Math.PI * 1/2, 2);
     }
     
     // example line for rescale
     svg += writeStampAsSVG(0, 0, (float) Math.PI * 1/2, 1, true);
-    svg += writeStampAsSVG(0, 0, (float) Math.PI * 3/2, 2, true);
+    //svg += writeStampAsSVG(0, 0, (float) Math.PI * 3/2, 2, true);
     svg += "</svg>";
     
     String[] svgArr = new String[1];
