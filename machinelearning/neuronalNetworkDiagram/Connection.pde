@@ -41,7 +41,14 @@ class Connection
     void display()
     {
         stroke(0);
-        strokeWeight(weight*4);
+        strokeWeight(1+weight*4);
         line(from.location.x, from.location.y, to.location.x, to.location.y);
+        
+        if (sending)
+        {
+            fill(0);
+            strokeWeight(1);
+            ellipse(sender.x, sender.y, 16, 16);
+        }
     }
 }

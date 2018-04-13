@@ -2,12 +2,12 @@ class Neuron
 {
     PVector location;
     ArrayList<Connection> connections;
-    int sum = 0;
+    float sum = 0;
     
     Neuron(float x, float y)
     {
-        location = new PVector(x, y);
-        connections = new ArrayList<Connection>();
+        this.location = new PVector(x, y);
+        this.connections = new ArrayList<Connection>();
     }
     
     void addConnection(Connection c)
