@@ -1,17 +1,25 @@
 \documentclass[10pt]{article}
 \usepackage[utf8]{inputenc}
 
-
 \usepackage[numbers]{natbib}
 
-\bibliographystyle{plainnat}
+% link support in pdf
 \usepackage[colorlinks,allcolors=blue,breaklinks = true]{hyperref}
 
+% images in pdf
 \usepackage{graphicx}
-\usepackage{url}
-\usepackage{float}
-\usepackage[acronym, automake]{glossaries}
+\graphicspath{{Bilder/}}
+% multiple images
 \usepackage{subfigure}
+% images float in text
+\usepackage{float}
+
+% url support
+\usepackage{url}
+% glossarie support
+\usepackage[acronym, automake]{glossaries}
+\makeglossaries
+\loadglsentries{glossary}
 
 % math libs
 \usepackage{amsmath}
@@ -45,15 +53,10 @@
   tabsize=3
 }
 
-%configs
-\graphicspath{ {Bilder/} }
-\makeglossaries
-\loadglsentries{glossary}
-
 %Metadata
-\title{2D levelcreation with Tensorflow}
+\title{TBD}
 \author{Simon Hischier}
-\date{Juni 2017}
+\date{April 2018}
 
 \begin{document}
 
@@ -70,14 +73,12 @@
 	\vspace{1.5cm}
 	{\huge\bf TBD\par}
 	
-	
 	\vspace{10cm}
 	{\Large Simon Hischier\par}
 	\vfill
 
 % Bottom of the page
 	{\large \today\par}
-
 \end{titlepage}
 
 %Table of Contents Page
@@ -87,7 +88,8 @@
 
 %First real page
 \section{Abstract}
-TBD
+\section{AI, Machinelearning, Deeplearning}
+blibla \cite{MichaelCopeland2016}
 
 \section{TensorFlow.js}
 As of April 2018 Google released a new JavaScript \gls{ml} library called \gls{tensorflowjs}. \gls{tensorflowjs} is build on deeplearn.js and can be used for a broad variety of \gls{ml} tasks. The library allows to train and run models in the webbrowser. Models can be pre-trained on a server or offline computer and then be used on the website.
@@ -95,12 +97,91 @@ As of April 2018 Google released a new JavaScript \gls{ml} library called \gls{t
 \section{Goal}
 The goal of this work is to generate maps for games. Maps from "Super Mario" or "Super Meat Boy" contain mostly solid or empty blocks. With that knowledge, the levels can probably be represented in an easy to read text format instead of an image format. The text can probably be feed into an \gls{ml} system and new maps can be generated with the assistance of a \gls{ml} model.
 
+We can Cite \cite{wikipediaScriptingLanguage}, \cite{Iivari2008usabilityInCompanyOSS}, \cite{almarzouq2005open}, \cite{heiseonline2017limuxservus}, \cite{viorres2007major}, \cite{wikipediaScriptingLanguage} etc. If we want to have terms and shortcuts we can introduce them once: \gls{longGlsEx} and \gls{oss}. If we refer to \gls{longGlsEx} and \gls{oss} later it will only use the short version.
+
+\newpage
+\newpage
+
+\section{Examples}
+\section{Examples of Images}
+Images are possible aswell:
+\begin{figure}[H]
+	\includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{example1.png}
+	\caption{Thats me. Source: {https://thecell.eu/}}
+\end{figure}
+
+and even multiple images are possible
+
+\begin{figure}[H]
+	\centering
+	\subfigure{\includegraphics[width=0.4\textwidth]{example1.png}}
+	\subfigure{\includegraphics[width=0.4\textwidth]{example2.png}}
+	\subfigure{\includegraphics[width=1\textwidth]{example3.png}}
+	\caption{multiple images as an example}
+	\caption{if needed to reference separate it's possible like this}
+\end{figure}
+
+\section{Script code}
+A simple codeblock is possible take a look at this:
+\begin{lstlisting}
+<script>
+let aVar = "this is a JavaScript variable";
+console.log(aVar);
+</script>
+\end{lstlisting}
+
+\section{Tables etc.}
+
+\textbf{Lists} can be made as following:
+\begin{itemize}
+\item List an item once
+\item or twice
+\item just add more if needed
+\item sublists are possible aswell:
+\begin{itemize}
+\item List an item once
+\item or twice
+\item just add more if needed
+\end{itemize}
+\end{itemize}
+
+If you are looking for tables, here it is:
+\begin{table}[H]
+\centering
+\begin{tabular}{ |c|c|c|c|c|c|c| }
+\hline
+ & 1 & 2 & 3 & 4 & 5 & 6 \\
+\hline
+Dota 2 & 31 min & H & ++ & Z & $<$40\$ & Kosmetisch \\
+\hline
+PoE & $\infty$ & H & ++ & Z & $<$\$440 & Shoppunkte \\
+\hline
+The Witcher 3 & 48.5h & H \& C &  & Z & \$24 & AddOn \\
+\hline
+\end{tabular}
+\caption{Statistik Spiellänge wurde erfasst von \texttt{https://howlongtobeat.com} und \texttt{http://steamspy.com/.}}
+\label{table:1}
+\end{table}
+
 \section{Referenzen und Akronyme}
 
 \printglossaries
 
-\bibliographystyle{unsrt}
-
+%\renewcommand{\refname}{myBibliography}
 \bibliography{myBibliography}
+%\bibliographystyle{unsrtnat}
+%\bibliographystyle{plainnat}
+\bibliographystyle{unsrt}
+%\bibliography{myBibliography}
+
+%list the figures and tables in contents
+%\addcontentsline{toc}{section}{\listfigurename}
+%\addcontentsline{toc}{section}{\listtablename}
+
+%print list
+\listoffigures
+\listoftables
+
+%\nocite{*}
 
 \end{document}
