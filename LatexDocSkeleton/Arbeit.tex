@@ -93,12 +93,13 @@ We can Cite \cite{wikipediaScriptingLanguage}, \cite{Iivari2008usabilityInCompan
 
 \section{Various examples}
 \subsection{crossreference}
-If we want to reference previous sections like (\hyperref[sec:abstract]{Abstract}) we can do that with a label and a reference.
+If we want to reference previous sections like (\hyperref[sec:abstract]{Abstract}) we can do that with a label and a reference. It is possible to automatically reference Sections \autoref{sec:abstract}, Items \autoref{itm:ListAnItemOnce} (which is not working yet?) or Figures \autoref{fig:examplesOfImages} aswell.
 \subsection{Examples of Images}
 Images are possible aswell:
 \begin{figure}[H]
 	\includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{example1.png}
 	\caption{Thats me. Source: {https://thecell.eu/}}
+	\label{fig:examplesOfImages}
 \end{figure}
 
 and even multiple images are possible
@@ -122,7 +123,7 @@ console.log(aVar);
 \end{lstlisting}
 
 \subsection{Tables etc.}
-
+\subsubsection{itemlist}
 \textbf{Lists} can be made as following:
 \begin{itemize}
 \item List an item once
@@ -130,12 +131,27 @@ console.log(aVar);
 \item just add more if needed
 \item sublists are possible aswell:
 \begin{itemize}
-\item List an item once
+\item List an item once \label{itm:ListAnItemOnce}
 \item or twice
 \item just add more if needed
 \end{itemize}
 \end{itemize}
 
+\subsubsection{more item examples}
+\begin{itemize}
+\item there are item lists
+\item like this one
+\end{itemize}
+\begin{enumerate}
+\item enumerations
+\item as seen here
+\end{enumerate}
+\begin{description}
+\item [Ant] and descriptions
+\item [Elephant] like these two
+\end{description}
+
+\subsubsection{Tables}
 If you are looking for tables, here it is:
 \begin{table}[H]
 \centering
