@@ -121,15 +121,19 @@ to read: $https://en.wikipedia.org/wiki/Long_short-term_memory$
 $https://colah.github.io/posts/2015-08-Understanding-LSTMs/$
 
 \section{The artistic vision and the generation}
-Generating content for games is a fundamental artistic choice for gamedevelopers. The generation in various forms is linked to a decrease in the artistic vision. Designers have to step away from micro-controlling gameparts like environment, shapes, colors, enemy behaviours etc. Therefore games do include \gls{pcg} in different ways and in various depths. Big studios tend to stick to more controlled experiences and have more (human-)resources to ensure this vision. A partial list of different depths includes:
+Generating content for games is a fundamental artistic choice for gamedevelopers. The generation in various forms is linked to a decrease in the artistic vision. Designers have to step away from micro-controlling gameparts like environment, shapes, colors, enemy behaviours etc. Therefore games do include \gls{pcg} in different ways and in various depths. Big studios tend to stick to more controlled experiences and have more (human-)resources to ensure this vision. We define a list of various depths of \gls{pcg}:
 \begin{enumerate}
-\item No generation (ex. \textit{Super Mario Bros} (Nintendo, 1985) where everything was handplaced, drawn and animated as explained in \textit{Super Mario Bros}. Level 1-1\cite{EurogamerMiyamotoInterview})
-\item Content generation in the game making phase. (ex. \textit{The Elder Scrolls Oblivion} (Bethesda Softworks, 2006) used \gls{pcg} to generated most of the world before the artists curated it.\cite{PCGamerCarterInterview} An example of a widely used \gls{pcg} algorithm middleware for game studios is SpeedTree\cite{SpeedTree}
-\item Gameplay partially based on \gls{pcg}
-\item Games almost completely generated ex. \textit{Dwarf Fortress} (Dwarf Fortress, 2006)
+\item \textbf{No generation} (ex. \textit{Super Mario Bros} (Nintendo, 1985) where everything was handplaced, drawn and animated as explained in \textit{Super Mario Bros}. Level 1-1\cite{EurogamerMiyamotoInterview})
+\item \textbf{Content generation in the game making phase.} (ex. \textit{The Elder Scrolls Oblivion} (Bethesda Softworks, 2006) used \gls{pcg} to generated most of the world before the artists curated it.\cite{PCGamerCarterInterview} An example of a widely used \gls{pcg} algorithm middleware for game studios is SpeedTree\cite{SpeedTree}
+\item \textbf{Gameplay (partially) definded or influenced} by \gls{pcg} such as the sidequests for \textit{The Elder Scrolls Skyrim} (Bethesda Softworks, 2011) which were endlessly generated\cite{Bertz2011} or Castles in \textit{Rogue Legacy} (Cellar Door Games, 2013) which are generated procedurally but the game has some kind of continuosity and progress on top of the castle runs.\cite{Stanton2013}
+\item \textbf{Games almost completely generated} ex. \textit{Dwarf Fortress} (Dwarf Fortress, 2006) doesn't stop at the map generation. It starts out generating the history of this world and everything that happened before.\cite{Champandard2012}
 \end{enumerate}
+Games and even game genres do fall into these different levels of \gls{pcg}. A major role for this classification of games and game genres is the depth of artistic controll or lack therefore. Games that do rely more on \gls{pcg} tend to focus more on the fun gameplay rather then an intriguing story and complex characters.
+
+\section{shortcomings of AI}
 , generation \gls{rpg}s started to rely more on generation and artists curation of contet to fill the initial world.
 
+super mario level 1-1 teaching ...
 \section{OLD:}
 \section{TensorFlow.js}
 As of April 2018 Google released a new JavaScript \gls{ml} library called \gls{tensorflowjs}. \gls{tensorflowjs} is build on deeplearn.js and can be used for a broad variety of \gls{ml} tasks. The library allows to train and run models in the webbrowser. Models can be pre-trained on a server or offline computer and then be used on the website.
