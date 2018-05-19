@@ -137,6 +137,9 @@ blibla \cite{MichaelCopeland2016} TODO: research definitions
 %The early days of PC games were all about \gls{pcg} TODO: https://ieeexplore.ieee.org/abstract/document/5593333/
 Games that are meant to be replayed a lot benefit from Procedural Generation.
 
+\section{Convolution Neural Network}
+TODO \gls{cnn}
+
 \section{Recurrent Neural Networks}
 As explained in \autoref{sec:AIMachinelearningDeeplearning} \gls{ml} is a broad term and includes a variety of models. The \gls{rnn} are networks for tasks where we need some kind of persistance. If we want to classify videoframes the network should have some kind of consistency.\cite{Olah2015} A network should persist the last seen data and not reclassify items every frame. Reclassifying without previous context could lead to different recognitions in every frame for the same object.
 
@@ -158,20 +161,35 @@ Games and even game genres do fall into these different levels of \gls{pcg}. A m
 \section{Procedural Content Generation and AI}
 As explained in \hyperref[sec:visionVSgeneration]{The artistic vision and the generation} there are various genres and games falling into different levels of automation and generation. Due to the type of gameplay and game mechanics linked to \gls{pcg}, games with high levels of generation can easily be identified. We hope to blur the lines more and create \gls{pcg} games that are less distinguishable from handcrafted counterparts. By extending the \gls{pcg} with \gls{ai} we hope to have a more natural and handcrafted feel to \gls{pcg} type games. As \gls{ml} gets used more in games, the applications starts to vary further.
 
+\section{Applications of Procedural Approaches}
+\textbf{TO DO}
+
 \section{Applications of AI systems}
 \textbf{TO DO}
+
 \subsection{Face representation in games}
-\cite{Feng2018}
-\subsection{game mechanics}
-ai game mechanics?
+An area where \gls{ai} is much more effective then handwritten procedrual approaches is face reconstruction and face mapping. Webcam feeds have no depth information and creating 3D faces from photos is a laborintensive work. Actual research shows \gls{ml} is capable of reconstruction and position maping 3D avatars from single images. It's robust, fast and stable\cite{Feng2018}. A large area in the games industry is avatar faces. Massive Multiplayer Games tend to have elaborate avatar creaton tools to customize the game character. Games like \textit{Arma} (Bohemia Interactive, 2013) are using the users voice in multiplayer sessions and try to synchronize the avatars lips with the players spoken words. Online chats with avatar representations such as \textit{VRChat} (VRChat Inc., 2017) have immersive VR worlds where players can walk and talk in a virtual environment. For streaming platforms like \textit{Twitch} (Amazon, 2011) a webcam feed is part of the majority of streams. All these different games, genres and platforms would benefit from some kind of reconstruction of the players face. \textit(Arma) could have the real users faces represented in real-time in the game, non human avatars could use \gls{ai} to map the users lips and expressions on to the virtual avatars. Streamer could have their faces as 3D models or have an avatar instead of a live camera feed.
+
 \subsection{evolution}
 asdf
+
+\subsection{game mechanics}
+ai game mechanics?
+
 \subsection{art etc.}
+ex. color palettes
+style transfer
+
+\subsection{assistance}
+Dota 2 plus assistance
+
+\subsection{text to speech}
+
 
 \section{shortcomings of AI}
 \textbf{TO DO}
-, generation \gls{rpg}s started to rely more on generation and artists curation of contet to fill the initial world.
--even more lack of controll
+, generation \gls{rpg}s started to rely more on generation and artists curation of content to fill the initial world.
+-even more lack of control, very big input array
 -same problems as with \gls{pcg} because a more complex understanding is needed for an artistic vision across levels
 
 \section{Procedural Content Generation and Machine Learning}
@@ -181,6 +199,13 @@ The different strengths of \gls{pcg} and \gls{ml} suggest, that \gls{ml} is an e
 super mario level 1-1 teaching ...
 
 \gls{ai} is a new type of content generation with overlapping areas to \gls{pcg} and classic game \gls{ai}s. It can go from a \gls{pcg} replacement to games revolving around an \gls{ai} (Alien game colonial marines?)
+
+\section{Conclusion}
+
+?
+ai is harder to controll then \gls{pcg} and depending on the area is a lot more labor intensive. But has fields where \gls{pcg} is inappropriate.
+?
+
 \section{OLD:}
 \section{TensorFlow.js}
 As of April 2018 Google released a new JavaScript \gls{ml} library called \gls{tensorflowjs}. \gls{tensorflowjs} is build on deeplearn.js and can be used for a broad variety of \gls{ml} tasks. The library allows to train and run models in the webbrowser. Models can be pre-trained on a server or offline computer and then be used on the website.
