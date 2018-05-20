@@ -136,6 +136,7 @@ As shown before, \gls{ai} is not a new phenomena and even \gls{ml} is known for 
 \section{Motivation}
 %The early days of PC games were all about \gls{pcg} TODO: https://ieeexplore.ieee.org/abstract/document/5593333/
 Games that are meant to be replayed a lot benefit from Procedural Generation.
+TODO??
 
 \section{Convolution Neural Network}
 The \gls{cnn} describes a method to reduce input data and enhance \gls{nn} performance. The convolution allows for faster calculations and reduces memory requirements. This advantages make \gls{cnn} very desirable for image recognition and voice recognition tasks and are widely used in these fields.
@@ -165,7 +166,7 @@ As explained in \hyperref[sec:visionVSgeneration]{The artistic vision and the ge
 \textbf{TO DO}
 
 \subsection{Level Generation}
-Procedural level generation 
+Procedural level generation is around for a very long time. It was present during the arcade games because of the need to possibly play endlessly to get the high score. It got carried over to the personal computer, generating dungeons to provide unique experiences and to counter floppy disk memory limitations. Currently one of the most known level generators is used in \textit{Minecraft} (Markus Persson, 2009) where the endless worlds are used to feed the players curiosity. The strength of these systems is that worlds are replicable (see Seeds in Minecraft), can be controlled and finetuned and don't necessarily need a lot of computational power. They are expandable, maintainable and errors in the level generation process can be checked and fixed. A drawback is the complexity (or lack therefore) of such generators. Worlds can look repetitive and empty.
 
 \subsection{Text to Speech}
 Procedural approaches of text to speech up until now were more on the functional side. Text to speech has great challenges and voices can sound very monotone, lack highlights and are in general not used in games. Games either hire voice actors to read the text examples or display the text as is.
@@ -195,10 +196,13 @@ Text is a big part of games. Extreme examples of games with word counts comparab
 \cite{Luan2018} painting with extra detail
 
 \subsection{Game AI}
-Something almost all games have is computer players controlled by \gls{ai}. There are a variety of different solutions to mimic human behaviour. The more complex a game is the harder it is to write comprehensible game \gls{ai}. Games like Go remain too hard to calculate a winning strategy. There are simply too many complex situations and too many possible paths to explore. In this field \gls{ai} really showed its power and Alpha Go defeating the world champion \textbf{TODO Paper ref} was a major step in \gls{ai}\cite{Silver2016}\cite{Silver2017}. While Alpha Go did need more hardwarepower then the usual gaming computer provides, OpenAI demonstrated a less powerhungry \gls{ai} for \textit{Dota 2} (Valve Corporation, 2013). At the International Tournament 2017 OpenAI demonstrated an \gls{ai} that beat Pro Players at the game reliably.\cite{Openai2017} The rules were more strict then a normal game of Dota 2 but given enough time and resources, an \gls{ai} that can beat Professional teams is likely. These types of games are a big challenge to program computer players for because they allow for wacky situations, situations never seen before and asymmetric or incomplete information about the other players. A strong field for \gls{ml} is creating \gls{ai} that always remains and adapts to the level of the human player. This is almost impossible to program by hand or with other approaches.
+Something almost all games have is computer players controlled by \gls{ai}. There are a variety of different solutions to mimic human behaviour. The more complex a game is the harder it is to write comprehensible game \gls{ai}. Games like Go remain too hard to calculate a winning strategy. There are simply too many complex situations and too many possible paths to explore. In this field \gls{ai} really showed its power and Alpha Go defeating the world champion was a major step in \gls{ai}\cite{Silver2016}\cite{Silver2017}. While Alpha Go did need more hardwarepower then the usual gaming computer provides, OpenAI demonstrated a less powerhungry \gls{ai} for \textit{Dota 2} (Valve Corporation, 2013). At the International Tournament 2017 OpenAI demonstrated an \gls{ai} that beat Pro Players at the game reliably.\cite{Openai2017} The rules were more strict then a normal game of Dota 2 but given enough time and resources, an \gls{ai} that can beat Professional teams is likely. These types of games are a big challenge to program computer players for because they allow for wacky situations, situations never seen before and asymmetric or incomplete information about the other players. A strong field for \gls{ml} is creating \gls{ai} that always remains and adapts to the level of the human player. This is almost impossible to program by hand or with other approaches.
 
 \subsection{Anti-Cheating}
 ref valve anti cheat
+
+\subsection{Level Generation compared}
+Level generation can be done via \gls{ai} or \gls{pcg} depending on the desired output. Both approaches could potentially be combined for a wider variety. What both approaches lack is the carefully curated and manually designed human aspect of levels. The amount of detail and teaching in a single \textit{Super Mario Bros.} (Nintendo, 1985) level\cite{EurogamerMiyamotoInterview} is still not feasible by both approaches.
 
 \section{shortcomings of AI}
 \textbf{TO DO}
@@ -217,6 +221,8 @@ super mario level 1-1 teaching ...
 \section{Conclusion}
 
 ?
+while pcg and ai both have very real and usefull ... they still lack the thought through creative possibilities possible by humans.
+showed in the example of level generation how the different approaches are
 ai is harder to controll then \gls{pcg} and depending on the area is a lot more labor intensive. But has fields where \gls{pcg} is inappropriate.
 ai needs more calculation power, big initial work
 know what to do upfront
