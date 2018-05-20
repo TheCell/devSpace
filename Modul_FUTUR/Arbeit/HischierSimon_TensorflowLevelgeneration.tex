@@ -94,11 +94,8 @@ bliblablup todo
 \textbf{Fragestellung}: How does content creation in games differ between \gls{pcg} and \gls{ml} content creation?
 
 \section{Definitions}
-\subsection{Content}
-Content in games can refer to various parts. Some known areas include level generation (dungeons, 
-
 \subsection{Procedural Content Generation}
-The term \gls{pcg} ..
+The term \gls{pcg} defines a form of content generation that is automated. The content is created through algorithmic processes and with few to no human interaction. This allows for the creation of bigger, more random looking, unique content with less artist interaction.\cite{VanderLinden2014}
 
 \subsection{Artificial Intelligence}
 In 1956 the Book Automata Studies\cite{McCarthy1956} layed the ground work for \gls{ai} and the Dartmouth summer research project on artificial intelligence marked the key event "to nail the flag to the mast." McCarthy is credited for coining the phrase “artificial intelligence” and solidifying the orientation of the field\cite{moor2006dartmouth}. The name \gls{ai} was used ever since for various applications. Ever since this key event \gls{ai} is defined based on the goal that is tried to beeing achieved. Bernard Marr lists them as following:\cite{Marr2018}
@@ -133,11 +130,6 @@ As shown before, \gls{ai} is not a new phenomena and even \gls{ml} is known for 
 	\caption{Levels of AI as Image\cite{MichaelCopeland2016}.}
 \end{figure}
 
-\section{Motivation}
-%The early days of PC games were all about \gls{pcg} TODO: https://ieeexplore.ieee.org/abstract/document/5593333/
-Games that are meant to be replayed a lot benefit from Procedural Generation.
-TODO??
-
 \section{Convolution Neural Network}
 The \gls{cnn} describes a method to reduce input data and enhance \gls{nn} performance. The convolution allows for faster calculations and reduces memory requirements. This advantages make \gls{cnn} very desirable for image recognition and voice recognition tasks and are widely used in these fields.
 
@@ -145,19 +137,17 @@ The \gls{cnn} describes a method to reduce input data and enhance \gls{nn} perfo
 As explained in \autoref{sec:AIMachinelearningDeeplearning} \gls{ml} is a broad term and includes a variety of models. The \gls{rnn} are networks for tasks where we need some kind of persistance. If we want to classify videoframes the network should have some kind of consistency.\cite{Olah2015} A network should persist the last seen data and not reclassify items every frame. Reclassifying without previous context could lead to different recognitions in every frame for the same object.
 
 \section{Long short-term memory}
-\gls{rnn} are good for persisting very recent information. Sentences are a great example: "Ships are built to float on \textit{water}". The \gls{rnn} is great in filling the end of this sentence. Problems arise when the information is needed a lot later. The more information is inbetween the contextual references the more unreiable a basic \gls{rnn} gets. Books for example can have references on the last page to the very beginning. For such tasks a \gls{lstm} model is the perfect fit. The \gls{lstm} network was introduced by Hochreiter Sepp and Urgen Schmidhuber\citep{Hochreiter1997}. A \gls{lstm} is a specialized version of a \gls{rnn} which is designed for these kind of tasks. Almost all \gls{rnn} tasks can be achieved with a \gls{lstm} \gls{rnn}\cite{Olah2015}. 
-to read: $https://en.wikipedia.org/wiki/Long_short-term_memory$
-$https://colah.github.io/posts/2015-08-Understanding-LSTMs/$
+\gls{rnn} are good for persisting very recent information. Sentences are a great example: "Ships are built to float on \textit{water}". The \gls{rnn} is great in filling the end of this sentence. Problems arise when the information is needed a lot later. The more information is inbetween the contextual references the more unreiable a basic \gls{rnn} gets. Books for example can have references on the last page to the very beginning. For such tasks a \gls{lstm} model is the perfect fit. The \gls{lstm} network was introduced by Hochreiter Sepp and Urgen Schmidhuber\citep{Hochreiter1997}. A \gls{lstm} is a specialized version of a \gls{rnn} which is designed for these kind of tasks. Almost all \gls{rnn} tasks can be achieved with a \gls{lstm} \gls{rnn}\cite{Olah2015}.
 
 \section{The artistic vision and the generation}\label{sec:visionVSgeneration}
-Generating content for games is a fundamental artistic choice for gamedevelopers. The generation in various forms is linked to a decrease in the artistic vision. Designers have to step away from micro-controlling gameparts like environment, shapes, colors, enemy behaviours etc. Therefore games do include \gls{pcg} in different ways and in various depths. Big studios tend to stick to more controlled experiences and have more (human-)resources to ensure this vision. We define a list of various depths of \gls{pcg}:
+Generating content for games is a fundamental artistic choice for game developers. The generation in various forms is linked to a decrease in the artistic vision. Designers have to step away from micro-controlling game parts like environment, shapes, colors, enemy behaviours etc. Therefore games do include \gls{pcg} in different ways and in various depths. Big studios tend to stick to more controlled experiences and have more (human-)resources to ensure this vision. We define a list of various depths of \gls{pcg}:
 \begin{enumerate}
 \item \textbf{No generation} (ex. \textit{Super Mario Bros} (Nintendo, 1985) where everything was handplaced, drawn and animated as explained in \textit{Super Mario Bros}. Level 1-1\cite{EurogamerMiyamotoInterview})
 \item \textbf{Content generation in the game making phase.} (ex. \textit{The Elder Scrolls Oblivion} (Bethesda Softworks, 2006) used \gls{pcg} to generated most of the world before the artists curated it.\cite{PCGamerCarterInterview} An example of a widely used \gls{pcg} algorithm middleware for game studios is SpeedTree\cite{SpeedTree}
 \item \textbf{Gameplay (partially) definded or influenced} by \gls{pcg} such as the sidequests for \textit{The Elder Scrolls Skyrim} (Bethesda Softworks, 2011) which were endlessly generated\cite{Bertz2011} or Castles in \textit{Rogue Legacy} (Cellar Door Games, 2013) which are generated procedurally but the game has some kind of continuosity and progress on top of the castle runs.\cite{Stanton2013}
 \item \textbf{Games almost completely generated} ex. \textit{Dwarf Fortress} (Dwarf Fortress, 2006) doesn't stop at the map generation. It starts out generating the history of this world and everything that happened before.\cite{Champandard2012}
 \end{enumerate}
-Games and even game genres do fall into these different levels of \gls{pcg}. A major role for this classification of games and game genres is the depth of artistic controll or lack therefore. Games that do rely more on \gls{pcg} tend to focus more on the fun gameplay rather then an intriguing story and complex characters.
+Games and even game genres do fall into these different levels of \gls{pcg}. A major role for this classification of games and game genres is the depth of artistic control or lack therefore.\cite{VanderLinden2014} Games that do rely more on \gls{pcg} tend to focus more on the fun gameplay rather then an intriguing story and complex characters. Further categorization and different methods of \gls{pcg} can be found in the Paper from van der Linden, Lopes and Bidarra\cite{VanderLinden2014}.
 
 \section{Procedural Content Generation and AI}
 As explained in \hyperref[sec:visionVSgeneration]{The artistic vision and the generation} there are various genres and games falling into different levels of automation and generation. Due to the type of gameplay and game mechanics linked to \gls{pcg}, games with high levels of generation can easily be identified. We hope to blur the lines more and create \gls{pcg} games that are less distinguishable from handcrafted counterparts. By extending the \gls{pcg} with \gls{ai} we hope to have a more natural and handcrafted feel to \gls{pcg} type games. As \gls{ml} gets used more in games, the applications starts to vary further.
@@ -166,7 +156,7 @@ As explained in \hyperref[sec:visionVSgeneration]{The artistic vision and the ge
 \textbf{TO DO}
 
 \subsection{Level Generation}
-Procedural level generation is around for a very long time. It was present during the arcade games because of the need to possibly play endlessly to get the high score. It got carried over to the personal computer, generating dungeons to provide unique experiences and to counter floppy disk memory limitations. Currently one of the most known level generators is used in \textit{Minecraft} (Markus Persson, 2009) where the endless worlds are used to feed the players curiosity. The strength of these systems is that worlds are replicable (see Seeds in Minecraft), can be controlled and finetuned and don't necessarily need a lot of computational power. They are expandable, maintainable and errors in the level generation process can be checked and fixed. A drawback is the complexity (or lack therefore) of such generators. Worlds can look repetitive and empty.
+Procedural level generation is around for a very long time. It was present during the arcade games because of the need to possibly play endlessly to get the high score. It got carried over to the personal computer, generating dungeons to provide unique experiences\cite{VanderLinden2014} and to counter floppy disk memory limitations. Currently one of the most known level generators is used in \textit{Minecraft} (Markus Persson, 2009) where the endless worlds are used to feed the players curiosity. The strength of these systems is that worlds are replicable (see world-seeds in Minecraft), can be controlled and fine-tuned and don't necessarily need a lot of computational power. They are expandable, maintainable and errors in the level generation process can be checked and fixed. A drawback is the complexity (or lack therefore) of such generators. Worlds can look repetitive and empty.
 
 \subsection{Text to Speech}
 Procedural approaches of text to speech up until now were more on the functional side. Text to speech has great challenges and voices can sound very monotone, lack highlights and are in general not used in games. Games either hire voice actors to read the text examples or display the text as is.
@@ -199,7 +189,7 @@ Text is a big part of games. Extreme examples of games with word counts comparab
 Something almost all games have is computer players controlled by \gls{ai}. There are a variety of different solutions to mimic human behaviour. The more complex a game is the harder it is to write comprehensible game \gls{ai}. Games like Go remain too hard to calculate a winning strategy. There are simply too many complex situations and too many possible paths to explore. In this field \gls{ai} really showed its power and Alpha Go defeating the world champion was a major step in \gls{ai}\cite{Silver2016}\cite{Silver2017}. While Alpha Go did need more hardwarepower then the usual gaming computer provides, OpenAI demonstrated a less powerhungry \gls{ai} for \textit{Dota 2} (Valve Corporation, 2013). At the International Tournament 2017 OpenAI demonstrated an \gls{ai} that beat Pro Players at the game reliably.\cite{Openai2017} The rules were more strict then a normal game of Dota 2 but given enough time and resources, an \gls{ai} that can beat Professional teams is likely. These types of games are a big challenge to program computer players for because they allow for wacky situations, situations never seen before and asymmetric or incomplete information about the other players. A strong field for \gls{ml} is creating \gls{ai} that always remains and adapts to the level of the human player. This is almost impossible to program by hand or with other approaches.
 
 \subsection{Anti-Cheating}
-ref valve anti cheat
+"Using Deep Learning to Combat Cheating in CSGO"
 
 \subsection{Level Generation compared}
 Level generation can be done via \gls{ai} or \gls{pcg} depending on the desired output. Both approaches could potentially be combined for a wider variety. What both approaches lack is the carefully curated and manually designed human aspect of levels. The amount of detail and teaching in a single \textit{Super Mario Bros.} (Nintendo, 1985) level\cite{EurogamerMiyamotoInterview} is still not feasible by both approaches.
