@@ -3,6 +3,8 @@ int LEDS = 3;
 int switchPin = 2;
 int val = 0;
 int buzzerPin = 4;
+int sonarVal = 0;
+int sonarAnalogPin = 5;
 
 void setup()
 {
@@ -17,6 +19,9 @@ void loop()
 {
   // put your main code here, to run repeatedly:
   val = analogRead(potPin);    // read the value from the sensor
+  sonarVal = analogRead(sonarAnalogPin);
+  Serial.print("sonarval: ");
+  Serial.println(sonarVal);
   Serial.print(digitalRead(switchPin));
   Serial.print("_");
   Serial.println(val);
