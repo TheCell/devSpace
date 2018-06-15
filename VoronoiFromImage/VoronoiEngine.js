@@ -8,26 +8,55 @@ class VoronoiEngine
 		this.imagedata = "";
 		this.imageWidth = 300;
 		this.imageHeight = 100;
-		this.NumberOfPoints = 10;
+		this.numberOfSeedPoints = 10;
+		this.seedPoints = [];
+
+		this.generateExample();
 	}
 
 	generateExample()
 	{
-		// todo
-	}
-
-	voronoiPoints(xLength, yLength)
-	{
-		let randomPoints = this.randomPointsInBoundaries(
-			this.NumberOfPoints,
+		// generate random Points as Voronoi seed
+		// is 2 points same spot allowed?
+		this.seedPoints = this.randomPointsInBoundaries(
+			this.numberOfSeedPoints,
 			this.imageWidth,
 			this.imageHeight);
+
+		// sort by x then by y
+		this.seedPoints.sort((objA, objB) => {
+			let lowerX = objA.x - objB.x;
+			if (lowerX == 0)
+			{
+				let lowerY = objA.y - objB.y;
+				return lowerY
+			}
+			return lowerX });
 	}
 
-	randomPointsInBoundaries(NumberOfPoints, xLength, yLength)
+	drawSeeds(ctx)
+	{
+		for (let i = this.seedPoints.length - 1; i >= 0; i--)
+		{
+			let currentPoint = this.seedPoints[i];
+			ctx.beginPath();
+			ctx.arc(currentPoint.x,currentPoint.y,1,0,2*Math.PI);
+			ctx.fill();
+		}
+	}
+
+	/**
+	 * generate random # Points inside a rectangular
+	 *
+	 * @param      {number}  numberOfSeedPoints  The number of seed points
+	 * @param      {number}  xLength             The x length of the bounding box
+	 * @param      {number}  yLength             The y length of the bounding box
+	 * @return     {Array}   [{x: int, y: int },... ]
+	 */
+	randomPointsInBoundaries(numberOfSeedPoints, xLength, yLength)
 	{
 		let randomPoints = [];
-		for (let i = 0; i < NumberOfPoints; i++)
+		for (let i = 0; i < numberOfSeedPoints; i++)
 		{
 			randomPoints.push(
 				{x: Math.round(Math.random() * xLength),

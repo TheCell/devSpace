@@ -12,7 +12,18 @@ The Wiki for this: <a href="https://en.wikipedia.org/wiki/Fortune%27s_algorithm"
 <script type="text/javascript" src="VoronoiEngine.js"></script>
 <script type="text/javascript">
 	let voronoiEngine = new VoronoiEngine();
-	document.getElementById("voronoiExample");
+
+	// create canvas and show
+	let voronoiDiv = document.getElementById("voronoiExample");
+	let voronoiCanvas = document.createElement("canvas");
+	voronoiCanvas.id = "voronoiCanvas";
+	voronoiCanvas.width = 300;
+	voronoiCanvas.height = 100;
+	voronoiCanvas.style.border = "1px solid";
+	let cctx = voronoiCanvas.getContext("2d");
+	voronoiDiv.appendChild(voronoiCanvas);
+
+	voronoiEngine.drawSeeds(cctx);
 </script>
 </body>
 </html>
