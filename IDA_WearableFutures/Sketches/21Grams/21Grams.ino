@@ -3,10 +3,13 @@ int ledPin = 13;      // select the pin for the LED
 int sensorValue = 0;  // variable to store the value coming from the sensor
 int oldValue = 0;
 int errorTolerance = 50;
+int soundPlayPin = 10;
 
 void setup() {
   // declare the ledPin as an OUTPUT:
   pinMode(ledPin, OUTPUT);
+  pinMode(soundPlayPin, OUTPUT);
+  digitalWrite(soundPlayPin, LOW);
   Serial.begin(9600);
 
   // initiate with basic values
@@ -35,6 +38,9 @@ void loop() {
       digitalWrite(ledPin, HIGH);
       // stop the program for for <sensorValue> milliseconds:
       Serial.println("Changed");
+      digitalWrite(soundPlayPin, HIGH);
+      delay(200);
+      digitalWrite(soundPlayPin, LOW);
   }
 
   /*
