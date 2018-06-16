@@ -1,4 +1,6 @@
 'use strict';
+// See http://www.wias-berlin.de/people/si/course/files/Fortune87-SweepLine-Voronoi.pdf
+// for the paper
 
 class VoronoiEngine
 {
