@@ -13,19 +13,19 @@ class VoronoiEngine
 		this.numberOfSeedPoints = 10;
 		this.seedPoints = [];
 
+		// just demo things. Generate for debug
 		this.generateExample();
 	}
 
 	generateExample()
 	{
 		// generate random Points as Voronoi seed
-		// is 2 points same spot allowed?
 		this.seedPoints = this.randomPointsInBoundaries(
 			this.numberOfSeedPoints,
 			this.imageWidth,
 			this.imageHeight);
 
-		// sort by x then by y
+		// sort by x if equal then by y
 		this.seedPoints.sort((objA, objB) => {
 			let lowerX = objA.x - objB.x;
 			if (lowerX == 0)
@@ -36,6 +36,11 @@ class VoronoiEngine
 			return lowerX });
 	}
 
+	/**
+	 * Draws seeds.
+	 *
+	 * @param      {object}  ctx     The canvas 2d context
+	 */
 	drawSeeds(ctx)
 	{
 		for (let i = this.seedPoints.length - 1; i >= 0; i--)
