@@ -79,6 +79,7 @@ class VoronoiEngine
 		return randomPoints;
 	}
 
+	// input is set of points (sites). Output is set of edges or polygons
 	calculateVoronoi()
 	{
 		if (this.seedPoints.length < 1)
@@ -93,14 +94,16 @@ class VoronoiEngine
 		let separationLine; // Line dividing registered points for Voronoi from yet unregistered
 		let beachLine; // points and intersections which are not yet final
 
+		// add all sites to the queue and add the element Type Site
 		priorityQueue = this.seedPoints;
 		priorityQueue.forEach( function (val, index, array)
 		{
 			val.elementType = VoronoiEngine.elementType.SITE;
 		});
 
-		let p;
 		// Sequence of regions, boundaries initiate with a copy of all p
+		/*
+		what have i written here?
 		L = priorityQueue.slice();
 
 		L.push
@@ -123,22 +126,36 @@ class VoronoiEngine
 			x: this.imageWidth, y: this.imageHeight,
 			elementType: VoronoiEngine.elementType.BOUNDARIE
 		});
+		*/
 
+		let minimalPoint;
 		while (priorityQueue.length > 0)
 		{
-			p = priorityQueue.shift(); // extract minimal point
-			if (p.elementType == VoronoiEngine.elementType.SITE)
+			minimalPoint = priorityQueue.shift(); // extract minimal point
+			if (minimalPoint.elementType == VoronoiEngine.elementType.SITE)
 			{
 				console.log("is site");
+				addParabola();
 			}
-			else if (p.elementType == VoronoiEngine.elementType.INTERSECTION)
+			else
 			{
-				console.log("is intersection");
+				console.log("not site");
+				removeParabola();
 			}
 		}
 
 		//let point = ... // {x: int, y: int}
 	}
+}
+
+function addParabola(let pointU)
+{
+
+}
+
+function removeParabola(let parabolaP)
+{
+
 }
 
 VoronoiEngine.elementType =
