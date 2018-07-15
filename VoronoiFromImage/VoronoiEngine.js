@@ -29,7 +29,7 @@ class VoronoiEngine
 			this.imageHeight);
 
 		// sort by x if equal then by y
-		// p, q ∈ R^2 are lexicographically ordered, p < q, if py < qy or py = qy and px < qx
+		// p, q ∈ R^2 are lexicographically ordered, p < q, if px < qx and (py < qy or py = qy)
 		this.seedPoints.sort((objA, objB) => {
 			let lowerX = objA.x - objB.x;
 			if (lowerX == 0)
@@ -80,7 +80,7 @@ class VoronoiEngine
 
 	calculateVoronoi()
 	{
-		if (!this.seedPoints.length >= 1)
+		if (this.seedPoints.length < 1)
 		{
 			console.error("no seedpoints given, stopping generation");
 			return;
