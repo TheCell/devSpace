@@ -29,7 +29,8 @@ class VoronoiEngine
 			this.imageHeight);
 
 		// sort by x if equal then by y
-		// p, q ∈ R^2 are lexicographically ordered, p < q, if px < qx and (py < qy or py = qy)
+		// p, q ∈ R^2 are lexicographically ordered,
+		// p < q, if px < qx and (py < qy or py = qy)
 		this.seedPoints.sort((objA, objB) => {
 			let lowerX = objA.x - objB.x;
 			if (lowerX == 0)
@@ -86,21 +87,21 @@ class VoronoiEngine
 			return;
 		}
 
-		let Q = []; // priority queue of points in the plane see sweepline paper
-		let S; // Let S be a set of n points in the plane, called sites.
-		let V; // V consists of the union of segments, half-lines, and lines.
-		let L; // Line dividing registered points for Voronoi from yet unregistered
+		let priorityQueue = []; // priority queue of points in the plane see sweepline paper
+		let setOfPointsInPlane; // Let S be a set of n points in the plane, called sites.
+		let unionOfSegmentsAndLines; // V consists of the union of segments, half-lines, and lines.
+		let separationLine; // Line dividing registered points for Voronoi from yet unregistered
 		let beachLine; // points and intersections which are not yet final
 
-		Q = this.seedPoints;
-		Q.forEach( function (val, index, array)
+		priorityQueue = this.seedPoints;
+		priorityQueue.forEach( function (val, index, array)
 		{
 			val.elementType = VoronoiEngine.elementType.SITE;
 		});
 
 		let p;
 		// Sequence of regions, boundaries initiate with a copy of all p
-		L = Q.slice();
+		L = priorityQueue.slice();
 
 		L.push
 		({
@@ -123,9 +124,9 @@ class VoronoiEngine
 			elementType: VoronoiEngine.elementType.BOUNDARIE
 		});
 
-		while (Q.length > 0)
+		while (priorityQueue.length > 0)
 		{
-			p = Q.shift(); // extract minimal point
+			p = priorityQueue.shift(); // extract minimal point
 			if (p.elementType == VoronoiEngine.elementType.SITE)
 			{
 				console.log("is site");
