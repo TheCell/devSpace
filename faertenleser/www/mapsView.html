@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Simple Map</title>
+		<meta name="viewport" content="initial-scale=1.0">
+		<meta charset="utf-8">
+		<style>
+			/* Always set the map height explicitly to define the size of the div
+			 * element that contains the map. */
+			#map {
+				height: 100%;
+			}
+			/* Optional: Makes the sample page fill the window. */
+			html, body {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+
+			#controlPanel
+			{
+				position: absolute;
+				background-color: green;
+				width: 150px;
+				height: 200px;
+				z-index: 2;
+				right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="controlPanel">
+			<button id="startTracking" onclick="faertenleser.startTracking()">start Tracking</button>
+			<button id="stopTracking" onclick="faertenleser.stopTracking()">stop Tracking</button>
+		</div>
+		<div id="map"></div>
+		<script>
+			let faertenleser;
+			let map;
+			function initMap() {
+				map = new google.maps.Map(document.getElementById('map'), {
+					center: {lat: 46.283482071652145, lng: 7.695113490573476},
+					zoom: 18
+				});
+
+				// debug only:
+				map.addListener(map, "leftclick", function(event)
+				{
+					console.log("click");
+					let lat = event.latLng.lat();
+					let lng = event.latLng.lng();
+					// populate yor box/field with lat, lng
+					console.log("Lat=" + lat + "; Lng=" + lng);
+				});
+
+        		faertenleser = new Faertenleser();
+			}
+		</script>
+        <script type="text/javascript" src="js/faertenleser.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6kmJ5VQGmrvXT9yMNnva0oED6iNhY7t4&callback=initMap"
+		async defer></script>
+	</body>
+</html>
