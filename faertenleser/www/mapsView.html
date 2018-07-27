@@ -54,6 +54,12 @@
 				});
 
         		faertenleser = new Faertenleser();
+
+				document.addEventListener("deviceready", onDeviceReady, false);
+				function onDeviceReady()
+				{
+					console.log("navigator.geolocation works well");
+				}
 			}
 		</script>
         <script type="text/javascript" src="js/faertenleser.js"></script>
