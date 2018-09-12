@@ -136,7 +136,7 @@
 		let pixelAsHex = convertPixelsToHex(grayscaleImage);
 
 		let link = document.getElementById("sendButton");
-		link.href = "data:text/plain;charset=utf-8;base64," + pixelAsHex;
+		link.href = "data:text/plain;charset=utf-8;base64," + base64Encode(pixelAsHex);
 		link.download = "blackAndWhite.txt";
 		//window.location.href=ePaperCanvas.toDataURL();
 	}
@@ -145,10 +145,18 @@
 	{
 		let pixelsString = "";
 
+		let counterForBreaks = 0;
+
 		for (let i = 0; i < pixels.data.length; i +=20)
 		{
+			if(counterForBreaks > 15)
+			{
+				counterForBreaks = 0;
+				pixelsString += "__";
+			}
 			// only read the R value.
-			pixelsString += "0x" + convertFourNumbersToHex(pixels.data[i], pixels.data[i+4], pixels.data[i+12], pixels.data[i+16]) + ",";
+			pixelsString += "0X" + convertFourNumbersToHex(pixels.data[i], pixels.data[i+4], pixels.data[i+12], pixels.data[i+16]) + ",";
+			counterForBreaks ++;
 		}
 
 		return pixelsString;
