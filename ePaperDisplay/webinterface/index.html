@@ -148,7 +148,7 @@
 		for (let i = 0; i < pixels.data.length; i +=20)
 		{
 			// only read the R value.
-			pixelsString += convertFourNumbersToHex(pixels.data[i], pixels.data[i+4], pixels.data[i+12], pixels.data[i+16]) + ",";
+			pixelsString += "0x" + convertFourNumbersToHex(pixels.data[i], pixels.data[i+4], pixels.data[i+12], pixels.data[i+16]) + ",";
 		}
 
 		return pixelsString;
@@ -156,7 +156,7 @@
 
 	function convertFourNumbersToHex(firstPixel, secondPixel, thirdPIxel, lastPixel)
 	{
-		let hexString = "0xFF";
+		let hexString = "FF";
 		let binString = "";
 		binString += singlePixelToBin(firstPixel);
 		binString += singlePixelToBin(secondPixel);
