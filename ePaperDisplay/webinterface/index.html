@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Epaper webinterface</title>
+	<script type="text/javascript" src="fabric.min.js"></script>
+	<script type="text/javascript" src="floydSteinbergDithering.js"></script>
+	<script type="text/javascript" src="hexBinConvert.js"></script>
+</head>
+<body>
+	<div>
+		<canvas id="inputCanvas" width="640" height="384"></canvas>
+	</div>
+	<div>
+		<canvas id="ePaperCanvas" width="640" height="384"></canvas>
+	</div>
+	<div>
+		<fieldset>
+			<legend>options</legend>
+
+			<label>image upload</label>
+			<input type="file" id="imageLoader" name="imageLoader" />
+
+			<label>grayscale resolution</label>
+			<input type="range" id="scaleRange" min="1" max="10" step="1" list="scaleRangeList">
+
+			<label>download to display</label>
+			<a class="button" id="downloadButton" onclick="downloadImage()">download</a>
+
+			<label>send to display</label>
+			<a class="button" id="sendButton" onclick="sendImage()">send</a>
+		</fieldset>
+
+		<datalist id="scaleRangeList">
+			<option value="0" label="0" />
+			<option value="5" label="5" />
+			<option value="10" label="10" />
+		</datalist>
+	</div>
+
+<script type="text/javascript">
+	// canvas code
+	"use strict";
+
+	// create a wrapper around native canvas element
+	window.fabricCanvas = new fabric.Canvas("inputCanvas");
+
+	function insertImageInCanvas(imgElement)
+	{
+		let imgInstance = new fabric.Image(
+			imgElement,
+			{
+			left: 0,
+			top: 0,
+			angle: 0,
+			opacity: 1.00
+			}
+		);
+		imgInstance.scaleToWidth(640, false);
+		window.fabricCanvas.add(imgInstance);
+		/*
+		fabric.Image.fromURL('my_image.png', function(oImg)
+		{
+			window.fabricCanvas.add(oImg);
+		});
+		*/
+	}
+</script>
+<script type="text/javascript">
+	// user input code
+	"use strict";
+	function setResolution()
+	{
+		let range = document.getElementById("scaleRange");
+		let numberNotChecked = parseInt(range.value);
+		let numberChecked = 2;
+		if (
+			isNaN(numberNotChecked)
+			|| numberNotChecked < 1
+			|| numberNotChecked > 10)
+		{
+			console("number not correct");
+		}
+		else
+		{
+			numberChecked = numberNotChecked;
+		}
+
+		window.resolutionFactor = numberChecked;
+	}
+
+	let scaleRange = document.getElementById("scaleRange");
+	scaleRange.addEventListener('change', setResolution, false);
+	scaleRange.defaultValue = 1;
+	setResolution();
+
+	let imageLoader = document.getElementById('imageLoader');
+    imageLoader.addEventListener('change', handleImage, false);
+
+    function handleImage(e)
+    {
+		let reader = new FileReader();
+		reader.onload = function(event)
+		{
+			var img = new Image();
+			img.onload = function()
+			{
+				insertImageInCanvas(img);
+			}
+			img.src = event.target.result;
+		}
+		reader.readAsDataURL(e.target.files[0]);
+	}
+
+	function downloadImage()
+	{
+		window.fabricCanvas.discardActiveObject().renderAll();
+		displayResult();
+		let ePaperCanvas = document.getElementById("ePaperCanvas");
+		let grayscaleImage = ePaperCanvas.toDataURL();
+
+		let link = document.getElementById("downloadButton");
+		link.href = grayscaleImage;
+		link.download = "grayscale.png";
+		//window.location.href=ePaperCanvas.toDataURL();
+	}
+
+	function sendImage()
+	{
+		window.resolutionFactor = 1;
+		window.fabricCanvas.discardActiveObject().renderAll();
+		displayResult();
+		let ePaperCanvas = document.getElementById("ePaperCanvas");
+		let ePaperCanvasCTX = ePaperCanvas.getContext("2d");
+		let grayscaleImage = ePaperCanvasCTX.getImageData(0, 0, inputCanvas.width, inputCanvas.height);
+		let pixelAsHex = convertPixelsToHex(grayscaleImage);
+
+		let link = document.getElementById("sendButton");
+		link.href = "data:text/plain;charset=utf-8;base64," + pixelAsHex;
+		link.download = "blackAndWhite.txt";
+		//window.location.href=ePaperCanvas.toDataURL();
+	}
+
+	function convertPixelsToHex(pixels)
+	{
+		let pixelsString = "";
+
+		for (let i = 0; i < pixels.data.length; i +=20)
+		{
+			// only read the R value.
+			pixelsString += convertFourNumbersToHex(pixels.data[i], pixels.data[i+4], pixels.data[i+12], pixels.data[i+16]) + ",";
+		}
+
+		return pixelsString;
+	}
+
+	function convertFourNumbersToHex(firstPixel, secondPixel, thirdPIxel, lastPixel)
+	{
+		let hexString = "0xFF";
+		let binString = "";
+		binString += singlePixelToBin(firstPixel);
+		binString += singlePixelToBin(secondPixel);
+		binString += singlePixelToBin(thirdPIxel);
+		binString += singlePixelToBin(lastPixel);
+		let hexObj = binaryToHex(binString);
+
+		if (hexObj.valid)
+		{
+			hexString = hexObj.result;
+		}
+		else
+		{
+			console.error("hex not correct");
+		}
+		return hexString;
+	}
+
+	function singlePixelToBin(pixel)
+	{
+		let bin = "00";
+
+		if (pixel > 0)
+		{
+			bin = "11"
+		}
+
+		return bin;
+	}
+</script>
+<script type="text/javascript">
+	"use strict";
+
+	function displayResult()
+	{
+		let inputCanvas = document.getElementById("inputCanvas");
+		let ePaperCanvas = document.getElementById("ePaperCanvas");
+		let inputCTX = inputCanvas.getContext("2d");
+		let ePaperCTX = ePaperCanvas.getContext("2d");
+
+		let imageData = inputCTX.getImageData(0, 0, inputCanvas.width, inputCanvas.height);
+
+		let img = getGrayscaleData(imageData);
+		ePaperCTX.putImageData(img, 0, 0);
+
+		//ePaperCanvas.drawImage(inputCanvas, 0, 0);
+	}
+
+	function getGrayscaleData(imageData)
+	{
+		let fsd = new floydSteinbergDithering(window.resolutionFactor);
+		return fsd.getImage(imageData);
+	}
+
+	function autodisplay()
+	{
+		displayResult();
+		setTimeout(autodisplay, 100);
+	}
+
+	autodisplay();
+</script>
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-75635403-2', 'auto');
+	ga('send', 'pageview');
+
+</script>
+<script type="text/javascript">
+	// I encode the given string as a Base64 value.
+	function base64Encode( stringInput )
+	{
+		// NOTE: This normalization technique for handling characters that require
+		// more than an 8-bit representation was provided on the Mozilla Developer
+		// Network website for Base64 encoding. They also provided a companion DECODE
+		// method. But, we don't need to decode in this demo.
+		// --
+		// READ MORE: https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding#The_Unicode_Problem
+		var normalizedInput = encodeURIComponent( stringInput ).replace(
+			/%([0-9A-F]{2})/g,
+			function toSolidBytes( $0, hex )
+			{
+				return( String.fromCharCode( "0x" + hex ) );
+			}
+		);
+
+		return( btoa( normalizedInput ) );
+	}
+</script>
+<style type="text/css">
+	#inputCanvas
+	{
+		border: 1px solid black;
+	}
+
+	#ePaperCanvas
+	{
+		border: 1px solid black;
+	}
+
+	.button
+	{
+		padding: 0px 10px;
+		-webkit-appearance: button;
+		-moz-appearance: button;
+		appearance: button;
+
+		cursor: default;
+	}
+</style>
+</body>
+</html>
