@@ -69,7 +69,7 @@
 <script type="text/javascript">
 	// user input code
 	"use strict";
-	function setResolution()
+	function setGrayLevels()
 	{
 		let range = document.getElementById("scaleRange");
 		let numberNotChecked = parseInt(range.value);
@@ -90,9 +90,9 @@
 	}
 
 	let scaleRange = document.getElementById("scaleRange");
-	scaleRange.addEventListener('change', setResolution, false);
+	scaleRange.addEventListener('change', setGrayLevels, false);
 	scaleRange.defaultValue = 1;
-	setResolution();
+	setGrayLevels();
 
 	let imageLoader = document.getElementById('imageLoader');
     imageLoader.addEventListener('change', handleImage, false);
