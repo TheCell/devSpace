@@ -147,7 +147,7 @@
 
 		let counterForBreaks = 0;
 
-		for (let i = 0; i < pixels.data.length; i += 12)
+		for (let i = 0; i < pixels.data.length; i += 32)
 		{
 			if(counterForBreaks > 15)
 			{
@@ -155,19 +155,42 @@
 				pixelsString += "__";
 			}
 			// only read the R value.
-			pixelsString += "0X" + convertTwoNumbersToHex(pixels.data[i], pixels.data[i+4]) + ",";
+			pixelsString += "0X" + convertEightNumbersToHex(
+				pixels.data[i],
+				pixels.data[i+4],
+				pixels.data[i+8],
+				pixels.data[i+12],
+				pixels.data[i+16],
+				pixels.data[i+20],
+				pixels.data[i+24],
+				pixels.data[i+28]) + ",";
 			counterForBreaks ++;
 		}
 
 		return pixelsString;
 	}
 
-	function convertTwoNumbersToHex(firstPixel, lastPixel)
+	function convertEightNumbersToHex(
+		firstPixel,
+		secondPixel,
+		thirdPixel,
+		fourthPixel,
+		fifthPixel,
+		sixtPixel,
+		seventhPixel,
+		lastPixel)
 	{
-		let hexString = "FF";
+		let hexString = "F";
 		let binString = "";
 		binString += singlePixelToBin(firstPixel);
+		binString += singlePixelToBin(secondPixel);
+		binString += singlePixelToBin(thirdPixel);
+		binString += singlePixelToBin(fourthPixel);
+		binString += singlePixelToBin(fifthPixel);
+		binString += singlePixelToBin(sixtPixel);
+		binString += singlePixelToBin(seventhPixel);
 		binString += singlePixelToBin(lastPixel);
+
 		let hexObj = binaryToHex(binString);
 
 		if (hexObj.valid)
@@ -183,11 +206,11 @@
 
 	function singlePixelToBin(pixel)
 	{
-		let bin = "0000";
+		let bin = "0";
 
 		if (pixel > 0)
 		{
-			bin = "0011"
+			bin = "1"
 		}
 
 		return bin;
