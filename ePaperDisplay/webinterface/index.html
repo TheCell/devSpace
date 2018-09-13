@@ -3,13 +3,14 @@
 <head>
 	<meta charset="utf-8">
 	<title>Epaper webinterface</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script type="text/javascript" src="fabric.min.js"></script>
 	<script type="text/javascript" src="floydSteinbergDithering.js"></script>
 	<script type="text/javascript" src="hexBinConvert.js"></script>
 </head>
 <body>
 	<div>
-		<canvas id="inputCanvas" width="640" height="384"></canvas>
+		<canvas id="inputCanvas" ></canvas>
 	</div>
 	<div>
 		<canvas id="ePaperCanvas" width="640" height="384"></canvas>
@@ -42,6 +43,15 @@
 	// canvas code
 	"use strict";
 
+	function setupCanvas(canvas)
+	{
+		canvas.width = 640;
+		canvas.height = 384;
+		console.log(canvas.width);
+	}
+
+	let inputCanvas = document.getElementById("inputCanvas");
+	setupCanvas(inputCanvas);
 	// create a wrapper around native canvas element
 	window.fabricCanvas = new fabric.Canvas("inputCanvas");
 
@@ -65,6 +75,9 @@
 		});
 		*/
 	}
+
+	// I don't have time to check why I need to recall this again here but you have to
+	setupCanvas(inputCanvas);
 </script>
 <script type="text/javascript">
 	// user input code
@@ -294,6 +307,7 @@
 	#inputCanvas
 	{
 		border: 1px solid black;
+		width: 640px;
 	}
 
 	#ePaperCanvas
