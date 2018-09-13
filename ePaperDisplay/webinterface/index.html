@@ -117,7 +117,7 @@
 		window.fabricCanvas.discardActiveObject().renderAll();
 		displayResult();
 		let ePaperCanvas = document.getElementById("ePaperCanvas");
-		let grayscaleImage = getGrayscaleData().data;
+		let grayscaleImage = ePaperCanvas.toDataURL();
 
 		let link = document.getElementById("downloadButton");
 		link.href = grayscaleImage;
