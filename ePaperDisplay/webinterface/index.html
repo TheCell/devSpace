@@ -117,7 +117,7 @@
 		window.fabricCanvas.discardActiveObject().renderAll();
 		displayResult();
 		let ePaperCanvas = document.getElementById("ePaperCanvas");
-		let grayscaleImage = ePaperCanvas.toDataURL();
+		let grayscaleImage = getGrayscaleData();
 
 		let link = document.getElementById("downloadButton");
 		link.href = grayscaleImage;
@@ -132,7 +132,7 @@
 		displayResult();
 		let ePaperCanvas = document.getElementById("ePaperCanvas");
 		let ePaperCanvasCTX = ePaperCanvas.getContext("2d");
-		let grayscaleImage = ePaperCanvasCTX.getImageData(0, 0, inputCanvas.width, inputCanvas.height);
+		let grayscaleImage = getGrayscaleData();
 		let pixelAsHex = convertPixelsToHex(grayscaleImage);
 
 		let link = document.getElementById("sendButton");
@@ -207,16 +207,27 @@
 
 		let imageData = inputCTX.getImageData(0, 0, inputCanvas.width, inputCanvas.height);
 
-		let img = getGrayscaleData(imageData);
+		let img = updateAndGetGrayscaleData(imageData);
 		ePaperCTX.putImageData(img, 0, 0);
 
 		//ePaperCanvas.drawImage(inputCanvas, 0, 0);
 	}
 
-	function getGrayscaleData(imageData)
+	function updateAndGetGrayscaleData(imageData)
+	{
+		updateGrayscaleData(imageData);
+		return window.grayscaleImage;
+	}
+
+	function getGrayscaleData()
+	{
+		return window.grayscaleImage;
+	}
+
+	function updateGrayscaleData(imageData)
 	{
 		let fsd = new floydSteinbergDithering(window.resolutionFactor);
-		return fsd.getImage(imageData);
+		window.grayscaleImage = fsd.getImage(imageData);
 	}
 
 	function autodisplay()
