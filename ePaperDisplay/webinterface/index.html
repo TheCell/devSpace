@@ -117,7 +117,7 @@
 		window.fabricCanvas.discardActiveObject().renderAll();
 		displayResult();
 		let ePaperCanvas = document.getElementById("ePaperCanvas");
-		let grayscaleImage = getGrayscaleData();
+		let grayscaleImage = getGrayscaleData().data;
 
 		let link = document.getElementById("downloadButton");
 		link.href = grayscaleImage;
@@ -132,8 +132,8 @@
 		displayResult();
 		let ePaperCanvas = document.getElementById("ePaperCanvas");
 		let ePaperCanvasCTX = ePaperCanvas.getContext("2d");
-		let grayscaleImage = getGrayscaleData();
-		let pixelAsHex = convertPixelsToHex(grayscaleImage);
+		let grayscaleObject = getGrayscaleData();
+		let pixelAsHex = convertPixelsToHex(grayscaleObject);
 
 		let link = document.getElementById("sendButton");
 		link.href = "data:text/plain;charset=utf-8;base64," + base64Encode(pixelAsHex);
@@ -147,7 +147,7 @@
 
 		let counterForBreaks = 0;
 
-		for (let i = 0; i < pixels.data.length; i +=20)
+		for (let i = 0; i < pixels.data.length; i += 12)
 		{
 			if(counterForBreaks > 15)
 			{
@@ -155,20 +155,18 @@
 				pixelsString += "__";
 			}
 			// only read the R value.
-			pixelsString += "0X" + convertFourNumbersToHex(pixels.data[i], pixels.data[i+4], pixels.data[i+12], pixels.data[i+16]) + ",";
+			pixelsString += "0X" + convertTwoNumbersToHex(pixels.data[i], pixels.data[i+4]) + ",";
 			counterForBreaks ++;
 		}
 
 		return pixelsString;
 	}
 
-	function convertFourNumbersToHex(firstPixel, secondPixel, thirdPIxel, lastPixel)
+	function convertTwoNumbersToHex(firstPixel, lastPixel)
 	{
 		let hexString = "FF";
 		let binString = "";
 		binString += singlePixelToBin(firstPixel);
-		binString += singlePixelToBin(secondPixel);
-		binString += singlePixelToBin(thirdPIxel);
 		binString += singlePixelToBin(lastPixel);
 		let hexObj = binaryToHex(binString);
 
@@ -185,11 +183,11 @@
 
 	function singlePixelToBin(pixel)
 	{
-		let bin = "00";
+		let bin = "0000";
 
 		if (pixel > 0)
 		{
-			bin = "11"
+			bin = "0011"
 		}
 
 		return bin;
