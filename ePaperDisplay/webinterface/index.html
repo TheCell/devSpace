@@ -22,8 +22,11 @@
 			<label>download to display</label>
 			<a class="button" id="downloadButton" onclick="downloadImage()">download</a>
 
-			<label>send to display</label>
+			<label>Arduino Format</label>
 			<a class="button" id="sendButton" onclick="sendImage()">send</a>
+
+			<label>base64</label>
+			<a class="button" id="send64Button" onclick="sendImageAsBase64()">send</a>
 		</fieldset>
 
 		<datalist id="scaleRangeList">
@@ -49,7 +52,6 @@
 	{
 		canvas.width = 640;
 		canvas.height = 384;
-		console.log(canvas.width);
 	}
 
 	let inputCanvas = document.getElementById("inputCanvas");
@@ -153,6 +155,28 @@
 		let link = document.getElementById("sendButton");
 		link.href = "data:text/plain;charset=utf-8;base64," + base64Encode(pixelAsHex);
 		link.download = "blackAndWhite.txt";
+		//window.location.href=ePaperCanvas.toDataURL();
+	}
+
+	function sendImageAsBase64()
+	{
+		window.resolutionFactor = 1;
+		window.fabricCanvas.discardActiveObject().renderAll();
+		displayResult();
+		let ePaperCanvas = document.getElementById("ePaperCanvas");
+		let ePaperCanvasCTX = ePaperCanvas.getContext("2d");
+		let grayscaleObject = getGrayscaleData();
+		let encoderCanvas = document.createElement("canvas");
+
+		encoderCanvas.width = grayscaleObject.width;
+		encoderCanvas.height = grayscaleObject.height;
+		let encoderCanvasCTX = encoderCanvas.getContext("2d");
+		encoderCanvasCTX.putImageData(grayscaleObject, 0, 0);
+
+		let link = document.getElementById("send64Button");
+		link.href = encoderCanvas.toDataURL();
+		console.log(link.href);
+		link.download = "base64bw.txt";
 		//window.location.href=ePaperCanvas.toDataURL();
 	}
 
