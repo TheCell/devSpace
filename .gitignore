@@ -54,3 +54,4 @@ node_modules
 faertenleser/platforms
 faertenleser/plugins
 ePaperDisplay/webinterface/dbauth.php
+ePaperDisplay/raspberryProgram/package-lock.json

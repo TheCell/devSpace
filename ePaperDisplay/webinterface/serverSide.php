@@ -16,9 +16,8 @@ if (!empty($uploaderIP) && !empty($imageData))
 {
 	$stmt = $pdo->prepare(
 		'INSERT INTO ePaperImages (imageData, uploaderIP)
-		 VALUES (:uploaderIP, :imageData)');
+		 VALUES (:imageData, :uploaderIP)');
 	$stmt->execute(['uploaderIP' => $uploaderIP, 'imageData' => $imageData]);
-	$imageData = $stmt->fetch();
 	$response_array['status'] = 'success';
 }
 
