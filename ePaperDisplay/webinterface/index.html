@@ -173,6 +173,32 @@
 		let encoderCanvasCTX = encoderCanvas.getContext("2d");
 		encoderCanvasCTX.putImageData(grayscaleObject, 0, 0);
 
+		let xhr = new XMLHttpRequest();
+		xhr.open(
+			"POST",
+			"https://dev.thecell.eu/ePaperDisplay/serverSide.php",
+			true);
+		//xhr.setRequestHeader('Content-Type', 'text/plain');
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == XMLHttpRequest.DONE)
+			{
+				if (this.status == 200)
+				{
+					console.log(this.responseText);
+				}
+				else
+				{
+					console.log("error");
+					console.log(this);
+				}
+			}
+		};
+
+		let formData = new FormData();
+		formData.append("imageData", encoderCanvas.toDataURL());
+		xhr.send(formData);
+
 		let link = document.getElementById("send64Button");
 		link.href = encoderCanvas.toDataURL();
 		console.log(link.href);
