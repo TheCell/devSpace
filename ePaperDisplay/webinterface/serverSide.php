@@ -4,7 +4,7 @@ require 'dbauth.php';
 $uploaderIP = $_SERVER['REMOTE_ADDR'];
 if (isset($_POST['imageData']))
 {
-	$imageData = filter_var($_POST['imageData'], FILTER_SANITIZE_EMAIL);
+	$imageData = filter_var($_POST['imageData'], FILTER_SANITIZE_URL);
 }
 else
 {
