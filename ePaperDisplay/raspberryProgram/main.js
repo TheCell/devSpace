@@ -1,11 +1,13 @@
 
+let {PythonShell} = require('python-shell');
 let XMLHttpRequest = require('xhr2');
+let fs = require('fs');
 let timeSinceLastPaperUpdate = new Date();
 let dateOfEpaperImage = new Date();
 let xhr = new XMLHttpRequest();
 let dataFetchingInProgress = false;
 
-let interval = setInterval(checkForEntry, 2000);
+let interval = setInterval(checkForEntry, 1000);
 
 function checkForEntry()
 {
@@ -22,8 +24,8 @@ function getnewestEntryDate()
 
 	console.log("checking Entry Date");
 	xhr.open('GET', 'https://dev.thecell.eu/ePaperDisplay/newestEntry.php?newestEntryTime=1', true);
-	xhr.send();
 	dataFetchingInProgress = true;
+	xhr.send();
 
 	xhr.onload = function ()
 	{
@@ -43,7 +45,7 @@ function getnewestEntryDate()
 	xhr.onerror = function ()
 	{
 		dataFetchingInProgress = false;
-		console.warn("error: ",xhr.response);
+		console.warn("error: ", xhr.response);
 	}
 }
 
@@ -56,6 +58,12 @@ function getNewestDataAndPaint()
 		let response = JSON.parse(this.responseText);
 		updateEpaper(response);
 	}
+
+	xhr.onerror = function ()
+	{
+		dataFetchingInProgress = false;
+		console.warn("error: ", xhr.response);
+	}
 }
 
 function updateEpaper(dataObj)
@@ -64,9 +72,40 @@ function updateEpaper(dataObj)
 	if (currentTime.getTime() > (timeSinceLastPaperUpdate.getTime() + 5000))
 	{
 		console.log("painting now");
+		writeImageToFile("base64bwExample.txt", dataObj.imageData);
+		runPython();
 		//todo dataObj.imageData
 		dateOfEpaperImage = new Date(dataObj.uploadTime);
 		timeSinceLastPaperUpdate = currentTime;
 	}
 	dataFetchingInProgress = false;
+}
+
+function writeImageToFile(filename, message)
+{
+	fs.writeFile(filename, message, handleError);
+
+	function handleError(err)
+	{
+		if (err)
+		{
+			return console.log(err);
+		}
+	}
+
+	console.log("file saved");
+}
+
+function runPython()
+{
+	let options = {};
+
+	PythonShell.run('imageCreation.py', options, pythonCallback);
+
+	function pythonCallback(err, results)
+	{
+		if (err) throw err;
+		// results is an array consisting of messages collected during execution
+		console.log('results: %j', results);
+	}
 }

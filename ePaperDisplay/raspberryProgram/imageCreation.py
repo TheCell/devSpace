@@ -9,7 +9,8 @@ def main():
     imgAsString = re.sub('^data:image/.+;base64,', '', imgAsString)
     imgdata = BytesIO(base64.b64decode(imgAsString))
     img = Image.open(imgdata)
-    img.save("imageToSave.bmp", "BMP")
+    img.save("imageForEPaper.bmp", "BMP")
+    # now send to epaper
 
 if __name__ == '__main__':
     main()
