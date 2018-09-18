@@ -4,43 +4,52 @@
 	<meta charset="utf-8">
 	<title>Epaper webinterface</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="fontawesome_5.3.1/css/solid.css">
+	<link rel="stylesheet" href="fontawesome_5.3.1/css/fontawesome.css">
 	<script type="text/javascript" src="fabric.min.js"></script>
 	<script type="text/javascript" src="floydSteinbergDithering.js"></script>
 	<script type="text/javascript" src="hexBinConvert.js"></script>
 </head>
 <body>
-	<div>
-		<fieldset>
-			<legend>options</legend>
-
-			<label>image upload</label>
+	<div class="optionsWrapper">
+		<div class="optionsMenu">
 			<input type="file" id="imageLoader" name="imageLoader" />
+			<label for="imageLoader" class="button"><i class="fas fa-image">
+				</i> image upload
+			</label>
 
-			<label>grayscale resolution</label>
-			<input type="range" id="scaleRange" min="1" max="10" step="1" list="scaleRangeList">
+			<input type="range" id="scaleRange" class="button" min="1" max="10" step="1" list="scaleRangeList">
 
-			<label>download to display</label>
-			<a class="button" id="downloadButton" onclick="downloadImage()">download</a>
+			<a class="button" id="downloadButton" onclick="downloadImage()">
+				<i class="fas fa-download"></i> download
+			</a>
+			<!--<label>download to display</label>-->
 
-			<label>Arduino Format</label>
+			<!--
 			<a class="button" id="sendButton" onclick="sendImage()">send</a>
+			<label>Arduino Format</label>
+			-->
 
-			<label>base64</label>
-			<a class="button" id="send64Button" onclick="sendImageAsBase64()">send</a>
-		</fieldset>
+			<a class="button submitButton" id="send64Button" onclick="sendImageAsBase64()">
+				<i class="fas fa-paper-plane"></i> send to ePaper
+			</a>
 
-		<datalist id="scaleRangeList">
-			<option value="0" label="0" />
-			<option value="5" label="5" />
-			<option value="10" label="10" />
-		</datalist>
+			<!--
+			<datalist id="scaleRangeList">
+				<option value="0" label="0" />
+				<option value="5" label="5" />
+				<option value="10" label="10" />
+			</datalist>
+			-->
+		</div>
 	</div>
 
-	<div>
+	<div class="canvasWrapper">
 		<canvas id="inputCanvas" ></canvas>
-	</div>
-	<div>
-		<canvas id="ePaperCanvas" width="640" height="384"></canvas>
+
+		<div class="canvas-container">
+			<canvas id="ePaperCanvas" width="640" height="384"></canvas>
+		</div>
 	</div>
 
 
@@ -199,11 +208,19 @@
 		formData.append("imageData", encoderCanvas.toDataURL());
 		xhr.send(formData);
 
+		/*
 		let link = document.getElementById("send64Button");
 		link.href = encoderCanvas.toDataURL();
 		console.log(link.href);
 		link.download = "base64bw.txt";
+		*/
 		//window.location.href=ePaperCanvas.toDataURL();
+
+		let sendButton = document.getElementById("send64Button");
+		sendButton.style.backgroundColor = "#4CAF50";
+		sendButton.style.color = "#C5D0DE";
+		sendButton.style.cursor = "default";
+		sendButton.onclick = "";
 	}
 
 	function convertPixelsToHex(pixels)
@@ -356,25 +373,159 @@
 	}
 </script>
 <style type="text/css">
+	html, body
+	{
+		background-color: #F1F4F8;
+		height: 100%;
+		width: 100%;
+		margin: 0px;
+	}
+
 	#inputCanvas
 	{
-		border: 1px solid black;
+		border: 1px solid #E7E9ED;
 		width: 640px;
+		background-color: white;
 	}
 
 	#ePaperCanvas
 	{
-		border: 1px solid black;
+		border: 1px solid #E7E9ED;
+		background-color: white;
 	}
 
 	.button
 	{
-		padding: 0px 10px;
-		-webkit-appearance: button;
-		-moz-appearance: button;
-		appearance: button;
+		/*
+		width: 160px;
+		height: 50px;
+		*/
+		background-color: #3C4650;
+		text-align: center;
+		display: inline-block;
+		vertical-align: middle;
+		border-radius: 2.5px;
+		cursor: pointer; /* "hand" cursor */
+		color: #C5D0DE;
+		font-size: 18px;
+		padding: 15px 30px;
+	}
 
-		cursor: default;
+	.button:hover
+	{
+		color: #3C4650;
+		background-color: #C5D0DE;
+	}
+
+	.submitButton
+	{
+		color: white;
+		background-color: #FF7800;
+	}
+
+	.submitButton:hover
+	{
+		background-color: white;
+		color: #FF7800;
+	}
+
+	.optionsWrapper
+	{
+		width: 100%;
+		background-color: #2B333E;
+		padding: 50px 0px;
+	}
+
+	.optionsMenu
+	{
+		height: 50px;
+		margin: 0px auto;
+		width: 820px;
+	}
+
+	.canvasWrapper
+	{
+		width: 100%;
+		height: 100%;
+	}
+
+	.canvas-container
+	{
+		margin: 50px auto;
+		width: 640px;
+	}
+
+	#imageLoader
+	{
+		width: 0.1px;
+		height: 0.1px;
+		opacity: 0;
+		overflow: hidden;
+		position: absolute;
+		z-index: -1;
+	}
+
+	#imageLoader + label
+	{
+		font-size: 1.25em;
+		font-weight: 700;
+		color: white;
+		background-color: #3C4650;
+		display: inline-block;
+		font-size: 18px;
+		font-weight: normal;
+		color: #C5D0DE;
+	}
+
+	#imageLoader:focus + label,
+	#imageLoader + label:hover
+	{
+		color: #3C4650;
+		background-color: #C5D0DE;
+	}
+
+	#imageLoader + label
+	{
+		cursor: pointer; /* "hand" cursor */
+	}
+
+	#imageLoader:focus + label
+	{
+		outline: 1px dotted #000;
+		outline: -webkit-focus-ring-color auto 5px;
+	}
+
+	#scaleRange
+	{
+		margin: 0px;
+		margin-right: 10px;
+	}
+
+	input[type=range]::-moz-range-thumb
+	{
+		border-radius: 2.5px;
+		height: 24px;
+		width: 8px;
+		background: #FF7800;
+		cursor: pointer;
+	}
+
+	input[type=range]::-webkit-slider-thumb
+	{
+		border-radius: 2.5px;
+		height: 24px;
+		width: 8px;
+		background: #FF7800;
+		cursor: pointer;
+	}
+
+	input[type=range]::-ms-thumb
+	{
+		border-radius: 2.5px;
+		height: 24px;
+		width: 8px;
+		background: #FF7800;
+		cursor: pointer;
 	}
 </style>
 </body>
