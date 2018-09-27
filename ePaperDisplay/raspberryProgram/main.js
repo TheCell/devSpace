@@ -29,6 +29,7 @@ function getnewestEntryDate()
 
 	xhr.onload = function ()
 	{
+		console.log("entries loaded, processing");
 		let response = JSON.parse(this.responseText);
 		let responseDate = new Date(response.uploadTime);
 
@@ -51,6 +52,7 @@ function getnewestEntryDate()
 
 function getNewestDataAndPaint()
 {
+	print("new entrie found, processing");
 	xhr.open('GET', 'https://dev.thecell.eu/ePaperDisplay/newestEntry.php?newestEntry=1', true);
 	xhr.send();
 	xhr.onload = function ()
