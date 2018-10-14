@@ -36,6 +36,9 @@
 \usepackage{listings}
 \usepackage{color}
 
+% subfile to include titlepage. Possible to gitignore titlepage with private information
+\usepackage{subfiles}
+
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -64,26 +67,8 @@
 
 \begin{document}
 
-%Titlepage
-\begin{titlepage}
-%\maketitle
-\centering
-\vspace{1cm}
-	{\scshape\LARGE Fachhochschule Luzern HSLU \par}
-	\vspace{1cm}
-	{\scshape\Large Studiengang Digital Ideation, Bachelor \par}
-	
-	{\scshape\Large 4. Semester\par}
-	\vspace{1.5cm}
-	{\huge\bf TBD\par}
-	
-	\vspace{10cm}
-	{\Large Simon Hischier\par}
-	\vfill
+\subfile{titlepage}
 
-% Bottom of the page
-	{\large \today\par}
-\end{titlepage}
 
 %Table of Contents Page
 \renewcommand{\contentsname}{Inhalt}
