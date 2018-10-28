@@ -44,6 +44,7 @@ function start(imageData)
 		1,
 		0);
 	let success = model.generate(Math.random, 0);
+	model.graphics(imgData.data)
 	ctx.putImageData(imgData, 0, 0);
 	console.log(success);
 
