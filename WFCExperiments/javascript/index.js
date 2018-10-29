@@ -36,7 +36,7 @@ function start(imageData)
 		imageData.data,
 		imageData.width,
 		imageData.height,
-		2,
+		3,
 		width,
 		height,
 		true,
