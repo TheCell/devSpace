@@ -25,6 +25,52 @@ function imgUrlToData(path, callback)
 
 function start(imageData)
 {
+	createSword(imageData);
+	let output = document.getElementById("output2");
+	let width = output.width;
+	let height = output.height;
+	ctx = output.getContext("2d");
+	let imgData = ctx.createImageData(width, height);
+	// input, width, height, N, outputWidth, outputHeight,
+	// periodicInput, periodicOutput, symmetry, ground
+	let model = new OverlappingModel(
+		imageData.data,
+		imageData.width,
+		imageData.height,
+		3,
+		width,
+		height,
+		true,
+		false,
+		1,
+		0);
+	let success = model.generate(Math.random, 0);
+	model.graphics(imgData.data)
+	ctx.putImageData(imgData, 0, 0);
+
+	if (success == false)
+	{
+		start(id); // try again, possibly endless
+	}
+	else
+	{
+		let world = [];
+		for (let y = 0; y < 48; y++)
+		{
+			let row = [];
+			for (let x = 0; x < 48; x++)
+			{
+				let color = getPixel(imgData, x, y).join(":");
+				row.push(colormap[color]);
+			}
+
+			world.push(row);
+		}
+	}
+}
+
+function createSword(imageData)
+{
 	let output = document.getElementById("output");
 	let width = output.width;
 	let height = output.height;
@@ -46,28 +92,6 @@ function start(imageData)
 	let success = model.generate(Math.random, 0);
 	model.graphics(imgData.data)
 	ctx.putImageData(imgData, 0, 0);
-	console.log(success);
-
-	if (success == false)
-	{
-		start(id); // try again, possibly endless
-	}
-	else
-	{
-		let world = [];
-		for (let y = 0; y < 48; y++)
-		{
-			let row = [];
-			for (let x = 0; x < 48; x++)
-			{
-				let color = getPixel(imgData, x, y).join(":");
-				row.push(colormap[color]);
-			}
-
-			world.push(row);
-		}
-		console.log(world);
-	}
 }
 
 function getPixel(imgData, x, y)
