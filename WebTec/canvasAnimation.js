@@ -14,6 +14,28 @@ function drawOnCanvas()
 function drawPaperPlane(ctx, color)
 {
     ctx.fillStyle = color;
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(180, 77);
+    ctx.lineTo(55.5, 96);
+    ctx.lineTo(86, 122);
+    ctx.lineTo(90.5, 158);
+    ctx.lineTo(106, 132);
+    ctx.lineTo(150.5, 146);
+    ctx.lineTo(180, 77);
+    ctx.stroke();
+    // width = "250px" height = "200px"
+    ctx.closePath();
+
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(180, 77);
+    ctx.lineTo(86, 122);
+    ctx.lineTo(180, 77);
+    ctx.lineTo(106, 132)
+    ctx.stroke();
+    ctx.closePath();
 }
 
 drawOnCanvas();
@@ -95,3 +117,22 @@ function getCookie(name)
     let parts = value.split("; " + name + "=");
     if (parts.length == 2) return parts.pop().split(";").shift();
 }
+
+// helpfull things
+function getMousePos(canvas, evt)
+{
+    let rect = canvas.getBoundingClientRect();
+    return {
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top
+    };
+}
+let canvasToDrawTo = document.getElementById('animationCanvas');
+let context = canvasToDrawTo.getContext('2d');
+
+canvasToDrawTo.addEventListener('mouseup', function (evt)
+{
+    let mousePos = getMousePos(canvasToDrawTo, evt);
+    let message = 'ctx.lineTo(' + mousePos.x + ',' + mousePos.y + ')';
+    console.log(message);
+}, false);

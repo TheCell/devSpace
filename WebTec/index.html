@@ -11,10 +11,15 @@
 <body class="darkTheme">
     <div class="topBar">
         <input type="button" id="webtheme" class="topBarButtons" name="webtheme" value="dark" onclick="toggleColor()">
-        <input type="color" id="drawcolor" class="topBarButtons" name="drawcolor" value="#12edc1">
+        <input type="color" id="drawcolor" class="topBarButtons" name="drawcolor" value="#12edc1" onchange="drawOnCanvas()">
     </div>
     <div class="canvasArea">
-        <canvas id="animationCanvas" width="250px" height="200px"></canvas>
+        <noscript>
+            <p>Dieses Webseite benötigt einen Webbrowser mit aktivierter JavaScript-Unterstützung.</p>
+        </noscript>
+        <canvas id="animationCanvas" width="250px" height="200px">
+            <p>Dieses Webseite benötigt einen Webbrowser mit aktivierter Canvas-Unterstützung.</p>
+        </canvas>
         <script src="canvasAnimation.js"></script>
         <script>
             setTheme();
