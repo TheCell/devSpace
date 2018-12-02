@@ -35,6 +35,23 @@ body
     margin: 15px;
 }
 
+.formArea
+{
+    width: 100%;
+    margin: 15px;
+}
+
+form
+{
+    margin: 0 auto;
+    width: 250px;
+}
+
+input, textarea
+{
+    width: 100%;
+}
+
 #animationCanvas
 {
     display: block;

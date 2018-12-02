@@ -6,6 +6,7 @@
     <title>Simons Webtec Website</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="all" href="main.css" />
+    <script src="themeswitch.js"></script>
 </head>
 <body class="darkTheme">
     <div class="topBar">
@@ -20,9 +21,22 @@
             <p>Dieses Webseite benötigt einen Webbrowser mit aktivierter Canvas-Unterstützung.</p>
         </canvas>
         <script src="canvasAnimation.js"></script>
-        <script>
-            setTheme();
-        </script>
     </div>
+    <div class="imageArea">
+        
+    </div>
+    <div class="formArea">
+        <form action="serverside.php" method="post" id="feedback">
+            <p>Ihr Name: <input type="text" name="name" /></p>
+            <p>
+            Feedback:
+            <textarea name="feedback" form="feedback"></textarea>
+            </p>
+            <p><input type="submit" /></p>
+        </form>
+    </div>
+    <script>
+        setTheme();
+    </script>
 </body>
 </html>
