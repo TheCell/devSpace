@@ -5,8 +5,11 @@
     <meta name="author" content="Simon Hischier">
     <title>Simons Webtec Website</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="all" href="main.css" />
+    <link type="text/css" rel="stylesheet" media="all" href="main.css" />
+    <link type="text/css" rel="stylesheet" href="lightslider.min.css" />
     <script src="themeswitch.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="lightslider.min.js"></script>
 </head>
 <body class="darkTheme">
     <div class="topBar">
@@ -22,8 +25,70 @@
         </canvas>
         <script src="canvasAnimation.js"></script>
     </div>
-    <div class="imageArea">
-        
+    <div class="imageAreaContainer">
+        <div class="imageArea">
+            <ul id="images">
+                <!--content will be loaded via ajax -->
+            </ul>
+            <script>
+                function loadImage(imageurl)
+                {
+                    return new Promise((resolve, reject) =>
+                    {
+                        let img = new Image();
+                        let list = document.createElement("li");
+                        list.setAttribute("data-thumb", imageurl)
+
+                        img.addEventListener('load', e => resolve(img));
+                        img.addEventListener('error', () =>
+                        {
+                            reject(new Error(`Failed to load image's URL: ${imageurl}`));
+                        });
+                        img.src = imageurl;
+                        list.append(img);
+
+                        let imagesUL = document.getElementById("images");
+                        imagesUL.append(list);
+                    });
+                }
+
+                $.ajax({
+                    url: "carouselImages.json",
+                    dataType: "json"
+                })
+                    .done(function (response)
+                    {
+                        let imgurlArray = response.imgurls;
+                        let imagePromises = [];
+
+                        imgurlArray.forEach(imageurl => 
+                        {
+                            imagePromises.push(loadImage(imageurl));
+                        });
+
+                        Promise.all(imagePromises)
+                            .then(function (values)
+                            {
+                                console.log("all images loaded");
+                                $("#images").lightSlider({
+                                    gallery: true,
+                                    item: 1,
+                                    loop: true,
+                                    slideMargin: 0,
+                                    thumbItem: 5
+                                });
+                            });
+                    })
+                    .fail(function (error)
+                    {
+                        console.error("error while loading carouselImages.json: ", error);
+                    })
+                    .always(function ()
+                    {
+                        // nothing to do here :)
+                    });
+            </script>
+        </div>
     </div>
     <div class="formArea">
         <form action="serverside.php" method="post" id="feedback">

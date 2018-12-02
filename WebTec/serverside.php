@@ -5,7 +5,7 @@
     <meta name="author" content="Simon Hischier">
     <title>Simons Webtec Website</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" media="all" href="main.css" />
+	<link type="text/css" rel="stylesheet" media="all" href="main.css" />
 	<script src="themeswitch.js"></script>
 </head>
 <body class="darkTheme">

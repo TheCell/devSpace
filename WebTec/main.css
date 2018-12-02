@@ -4,6 +4,38 @@ body
     padding: 0px;
 }
 
+form
+{
+    margin: 0 auto;
+    width: 250px;
+}
+
+input, textarea
+{
+    width: 100%;
+}
+
+ul
+{
+    list-style: none outside none;
+    padding-left: 0;
+    margin-bottom:0;
+}
+
+li
+{
+    display: block;
+    float: left;
+    margin-right: 6px;
+    cursor:pointer;
+}
+img
+{
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+
 .topBar
 {
     background-color: gray;
@@ -35,21 +67,16 @@ body
     margin: 15px;
 }
 
-.formArea
-{
-    width: 100%;
-    margin: 15px;
-}
-
-form
+.imageArea
 {
     margin: 0 auto;
     width: 250px;
 }
 
-input, textarea
+.formArea, .imageAreaContainer
 {
     width: 100%;
+    margin: 15px;
 }
 
 #animationCanvas
