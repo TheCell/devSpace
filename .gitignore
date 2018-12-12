@@ -55,3 +55,5 @@ faertenleser/platforms
 faertenleser/plugins
 ePaperDisplay/raspberryProgram/package-lock.json
 ePaperDisplay/WaveshareSource
+/adventofcode/nbproject/private/
+/adventofcode/build/
