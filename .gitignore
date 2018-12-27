@@ -57,3 +57,6 @@ ePaperDisplay/raspberryProgram/package-lock.json
 ePaperDisplay/WaveshareSource
 /adventofcode/nbproject/private/
 /adventofcode/build/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
