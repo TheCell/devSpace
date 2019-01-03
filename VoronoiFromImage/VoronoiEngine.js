@@ -1,10 +1,10 @@
 'use strict';
-// See http://www.wias-berlin.de/people/si/course/files/Fortune87-SweepLine-Voronoi.pdf
 // for the paper
-// http://skynet.ie/~sos/mapviewer/voronoi.php
+// See http://www.wias-berlin.de/people/si/course/files/Fortune87-SweepLine-Voronoi.pdf
 // for a c++ solution
-// http://blog.ivank.net/fortunes-algorithm-and-implementation.html
+// http://skynet.ie/~sos/mapviewer/voronoi.php
 // for simpler explanation
+// http://blog.ivank.net/fortunes-algorithm-and-implementation.html
 
 class VoronoiEngine
 {
@@ -13,7 +13,7 @@ class VoronoiEngine
 		this.imagedata = "";
 		this.imageWidth = 300;
 		this.imageHeight = 100;
-		this.numberOfSeedPoints = 10;
+		this.numberOfSeedPoints = 20;
 		this.seedPoints = [];
 
 		// just demo things. Generate for debug
@@ -23,10 +23,7 @@ class VoronoiEngine
 	generateExample()
 	{
 		// generate random Points as Voronoi seed
-		this.seedPoints = this.randomPointsInBoundaries(
-			this.numberOfSeedPoints,
-			this.imageWidth,
-			this.imageHeight);
+		this.seedPoints = this.randomPointsInBoundaries();
 
 		// sort by x if equal then by y
 		// p, q ∈ R^2 are lexicographically ordered,
@@ -38,7 +35,8 @@ class VoronoiEngine
 				let lowerY = objA.y - objB.y;
 				return lowerY
 			}
-			return lowerX });
+			return lowerX
+		});
 	}
 
 	/**
@@ -65,15 +63,20 @@ class VoronoiEngine
 	 * @param      {number}  yLength             The y length of the bounding box
 	 * @return     {Array}   [{x: int, y: int },... ]
 	 */
-	randomPointsInBoundaries(numberOfSeedPoints, xLength, yLength)
+	randomPointsInBoundaries()
 	{
+		let xLength = this.imageWidth;
+		let yLength = this.imageHeight;
+		let numberOfSeedPoints = this.numberOfSeedPoints;
 		let randomPoints = [];
+
 		for (let i = 0; i < numberOfSeedPoints; i++)
 		{
 			randomPoints.push(
-				{x: Math.round(Math.random() * xLength),
-				 y: Math.round(Math.random() * yLength)}
-			);
+				new Point(
+					Math.round(Math.random() * xLength),
+					Math.round(Math.random() * yLength))
+				);
 		}
 
 		return randomPoints;
@@ -148,12 +151,12 @@ class VoronoiEngine
 	}
 }
 
-function addParabola(let pointU)
+function addParabola(pointU)
 {
 
 }
 
-function removeParabola(let parabolaP)
+function removeParabola(parabolaP)
 {
 
 }
