@@ -1,4 +1,5 @@
 // Gray-Scott model
+// goal: insert bw image as feed / kill values: https://twitter.com/i/status/1081067778176634880
 ReactionDiffusionSystem rfs;
 int xSize = 300;
 int ySize = 300;
@@ -15,6 +16,8 @@ void setup()
 
 void draw()
 {
+  loadPixels();
   rfs.update();
   rfs.draw();
+  updatePixels();
 }

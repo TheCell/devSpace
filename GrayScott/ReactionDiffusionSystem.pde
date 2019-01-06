@@ -115,8 +115,6 @@ class ReactionDiffusionSystem
   
   public void draw()
   {
-    loadPixels();
-    
     for (int i = 0; i < (xSize*ySize); i++)
     {
       float pixelValue;
@@ -188,8 +186,6 @@ class ReactionDiffusionSystem
       color pixelColor = lerpColor(color1, color2, lerpValue);
       pixels[i] = pixelColor;
     }
-    
-    updatePixels();
   }
 
   private void init()
