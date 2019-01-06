@@ -4,6 +4,7 @@
 
 class ReactionDiffusionSystem
 {
+  private PImage canvas;
   private float feed;
   private float kill;
   private float deltaTime = 0.01;
@@ -18,8 +19,9 @@ class ReactionDiffusionSystem
   private float stepY = 1.0 / ySize;
   public boolean drawInverted = true;
   
-  public ReactionDiffusionSystem(int x, int y, float feed, float kill)
+  public ReactionDiffusionSystem(int x, int y, float feed, float kill, PImage canvas)
   {
+    this.canvas = canvas;
     this.xSize = x;
     this.ySize = y;
     this.feed = feed;
@@ -184,7 +186,7 @@ class ReactionDiffusionSystem
       
       //print(color1, color2, lerpValue);
       color pixelColor = lerpColor(color1, color2, lerpValue);
-      pixels[i] = pixelColor;
+      canvas.pixels[i] = pixelColor;
     }
   }
 
