@@ -15,8 +15,6 @@ class ReactionDiffusionSystem
   private int ySize;
   private color[] colorPalette;
   private float[] colorTreshholds;
-  private float stepX = 1.0 / xSize;
-  private float stepY = 1.0 / ySize;
   public boolean drawInverted = true;
   
   public ReactionDiffusionSystem(int x, int y, float feed, float kill, PImage canvas)
@@ -33,7 +31,6 @@ class ReactionDiffusionSystem
   {
     float du;
     float dv;
-    float delta;
     
     // manhattan Neighbourhood
     PVector uv;
@@ -42,13 +39,12 @@ class ReactionDiffusionSystem
     PVector uvTop;
     PVector uvBottom;
     PVector laplacian;
+    PVector[][] dotPerScreenPixelTEMP = new PVector[xSize][ySize];
     
     for (int i = 0; i < (xSize*ySize); i++)
     {
       int xCoord = i%xSize;
       int yCoord = (int)Math.floor(i/xSize);
-      float previousA = dotPerScreenPixel[xCoord][yCoord].x;
-      float previousB = dotPerScreenPixel[xCoord][yCoord].y;
       
       uv = dotPerScreenPixel[xCoord][yCoord];
       boolean isLeftEdge = !(xCoord > 0);
@@ -111,8 +107,10 @@ class ReactionDiffusionSystem
       
       PVector newValue = new PVector(uv.x + deltaTime*du, uv.y + deltaTime*dv);
       
-      dotPerScreenPixel[xCoord][yCoord] = newValue;
+      dotPerScreenPixelTEMP[xCoord][yCoord] = newValue;
     }
+    
+    dotPerScreenPixel = dotPerScreenPixelTEMP;
   }
   
   public void draw()
