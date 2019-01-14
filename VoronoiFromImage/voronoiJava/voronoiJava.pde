@@ -14,7 +14,7 @@ void settings()
 void setup()
 {
   windowSize = new PVector(xSize, ySize);
-   //<>//
+   //<>// //<>//
   voronoiEngine = new VoronoiEngine(windowSize, 20);
 }
 
