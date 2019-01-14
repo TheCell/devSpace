@@ -3,7 +3,6 @@ import java.util.Objects;
 class Point implements Comparable<Point>
 {
   private PVector coordinates;
-  private color pColor;
 
   Point(int x, int y)
   {
@@ -12,22 +11,7 @@ class Point implements Comparable<Point>
 
   Point(PVector coordinates)
   {
-    this
-      (
-      coordinates, 
-      color
-      (
-      (int)random(0, 255), 
-      (int)random(0, 255), 
-      (int)random(0, 255)
-      )
-      );
-  }
-
-  Point(PVector coordinates, color pointColor)
-  {
     this.coordinates = coordinates;
-    this.pColor = pointColor;
   }
   
   public PVector getCoords()
