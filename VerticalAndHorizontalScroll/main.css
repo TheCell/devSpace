@@ -1,0 +1,36 @@
+.pageBlock
+{
+	width: 100vw;
+	height: 100vh;
+	background-color: #4286f4;
+	display: block;
+}
+
+.pageBlock:nth-of-type(odd)
+{
+	background-color: aquamarine;
+}
+
+.horizontalScroll
+{
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: 100vw;
+	width: 100vw;
+	/*
+	transform: rotate(-90deg) translateY(100vw);
+	*/
+	transform: rotate(-90deg);
+	scrollbar-width: none;
+}
+
+.horizontalScroll::-webkit-scrollbar
+{
+	display: none;
+}
+
+.horizontalScroll > .pageBlock
+{
+	transform: rotate(90deg) translateX(100vw);
+	transform-origin: right top;
+}
