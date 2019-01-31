@@ -60,3 +60,5 @@ ePaperDisplay/WaveshareSource
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints
+/JavaElectron/java/ExampleApplication/nbproject/private/
+/JavaElectron/java/ExampleApplication/build/
