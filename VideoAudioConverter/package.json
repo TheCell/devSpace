@@ -1,0 +1,23 @@
+{
+  "name": "Jiandan",
+  "version": "1.0.0",
+  "description": "A simple video and audio converter",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/TheCell/devSpace",
+  "keywords": [
+    "converter",
+    "simple",
+    "easy"
+  ],
+  "author": "TheCell",
+  "license": "",
+  "devDependencies": {
+    "electron": "^5.0.2"
+  },
+  "dependencies": {
+    "shelljs": "^0.8.3"
+  }
+}
