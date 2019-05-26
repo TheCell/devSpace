@@ -3,14 +3,40 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Hello World!</title>
+		<link rel="stylesheet" type="text/css" href="reset.css"/>
+		<link rel="stylesheet" type="text/css" href="main.css"/>
+		<link rel="stylesheet" type="text/css" href="theme.css"/>
+		<script type="text/javascript" src="lib/theme.js"></script>
 	</head>
 	<body>
+		<input type="file" name="inputFile" id="inputFile">
+		<input type="text" name="outputFile" id="outputFile">
+		<button onclick="ffmpegConvert()">save</button>
+
+		<div id='benchmark'>
+			<table>
+				<tr>
+					<td class='bg f_high'>bg:f_high</td><td class='b_low f_high'>b_low:f_high</td><td class='b_med f_high'>b_med:f_high</td><td class='b_high f_high'>b_high:f_high</td>
+				</tr>
+				<tr>
+					<td class='bg f_med'>bg:f_med</td>  <td class='b_low f_med'>b_low:f_med</td>  <td class='b_med f_med'>b_med:f_med</td>  <td class='b_high f_med'>b_high:f_med</td>
+				</tr>
+				<tr>
+					<td class='bg f_low'>bg:f_low</td>  <td class='b_low f_low'>b_low:f_low</td>  <td class='b_med f_low'>b_med:f_low</td>  <td class='b_high f_low'>b_high:f_low</td>
+				</tr>
+				<tr>
+					<td class='b_inv f_inv'>b_inv:f_inv</td>
+				</tr>
+			</table>
+		</div>
+		<!--
 		<button>show Items</button>
 		<div id="itemlist"></div>
 		<h1>Hello World!</h1>
 		We are using node <script>document.write(process.versions.node)</script>,
 		Chrome <script>document.write(process.versions.chrome)</script>,
 		and Electron <script>document.write(process.versions.electron)</script>.
+		-->
+		<script src="index.js"></script>
 	</body>
-	<script src="index.js"></script>
 </html>

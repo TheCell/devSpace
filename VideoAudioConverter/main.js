@@ -1,7 +1,4 @@
 const { app, BrowserWindow } = require('electron');
-//const { shelljs } = require('shelljs');
-//let shelljs = require('shelljs');
-const shellExec = require('shell-exec');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -19,20 +16,6 @@ function createWindow () {
 
 	// and load the index.html of the app.
 	win.loadFile('index.html');
-
-	shellExec("ffmpeg -version")
-		.then(output =>
-		{
-			console.log(output.stdout);
-		});
-	//shelljs.config.execPath = "C:\\ffmpeg\\bin";
-	//shelljs.dirs();
-	//console.log(shelljs.config);
-	//shelljs.exec("ffmpeg -version");
-	//shelljs.exec("dir");
-	//console.log(shelljs.env);
-	//shell.showItemInFolder('/Users/simon/Documents/GitHub/devSpace/VideoAudioConverter');
-
 
 	// Open the DevTools.
 	win.webContents.openDevTools();
