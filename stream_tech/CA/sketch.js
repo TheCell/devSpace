@@ -109,3 +109,6 @@ function ruleAllowsDraw(left, middle, right) {
   
   return CARules[ruleName];
 }
+
+// websocket things
+// const socket = new WebSocket()
