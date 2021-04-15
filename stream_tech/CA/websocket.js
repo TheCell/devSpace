@@ -22,6 +22,7 @@ websocket.onmessage = function (e) {
 };
 
 websocket.onerror = function (e) {
+    console.log(e);
     writeToScreen("<span class=error>ERROR:</span> " + e.data);
 };
 

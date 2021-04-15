@@ -61,18 +61,19 @@ namespace StreamingCentral
                 }
                 else
                 {
-                    bool fin = (bytes[0] & 0b10000000) != 0,
-                        mask = (bytes[1] & 0b10000000) != 0; // must be true, "All messages from the client to the server have this bit set"
+                    bool fin = (bytes[0] & 0b10000000) != 0;
+                    bool mask = (bytes[1] & 0b10000000) != 0; // must be true, "All messages from the client to the server have this bit set"
 
-                    int opcode = bytes[0] & 0b00001111, // expecting 1 - text message
-                        msglen = bytes[1] - 128, // & 0111 1111
-                        offset = 2;
+                    int opcode = bytes[0] & 0b00001111; // expecting 1 - text message
+                    int msglen = bytes[1] - 128; // & 0111 1111
+                    int offset = 2;
 
                     if (msglen == 126)
                     {
                         // was ToUInt16(bytes, offset) but the result is incorrect
                         msglen = BitConverter.ToUInt16(new byte[] { bytes[3], bytes[2] }, 0);
                         offset = 4;
+                        Console.WriteLine("touint16 incorrect");
                     }
                     else if (msglen == 127)
                     {
@@ -100,7 +101,11 @@ namespace StreamingCentral
 
                         if (stream.CanWrite)
                         {
+                            // MVP: https://stackoverflow.com/a/61106373/1003686
+                            var header = GetHeader(true, false);
                             Byte[] answer = Encoding.UTF8.GetBytes("soklappts");
+                            header = (header << 7) + answer.Length;
+                            stream.Write(IntToByteArray((ushort)header), 0, 2);
                             stream.Write(answer, 0, answer.Length);
                         }
                         else
@@ -114,6 +119,29 @@ namespace StreamingCentral
                     }
                 }
             }
+        }
+
+        protected int GetHeader(bool finalFrame, bool contFrame)
+        {
+            int header = finalFrame ? 1 : 0;//fin: 0 = more frames, 1 = final frame
+            header = (header << 1) + 0;//rsv1
+            header = (header << 1) + 0;//rsv2
+            header = (header << 1) + 0;//rsv3
+            header = (header << 4) + (contFrame ? 0 : 1);//opcode : 0 = continuation frame, 1 = text
+            header = (header << 1) + 0;//mask: server -> client = no mask
+
+            return header;
+        }
+
+        protected byte[] IntToByteArray(ushort value)
+        {
+            var ary = BitConverter.GetBytes(value);
+            if (BitConverter.IsLittleEndian)
+            {
+                Array.Reverse(ary);
+            }
+
+            return ary;
         }
     }
 }
