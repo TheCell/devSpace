@@ -6,9 +6,11 @@ namespace StreamingCentral
     {
         static void Main(string[] args)
         {
-            LocalServer server = new LocalServer();
+            //var server = new LocalServer();
 
-            server.Start();
+            //server.Start();
+            var ytsearch = new YTSearchSample();
+            ytsearch.Start();
         }
     }
 }
