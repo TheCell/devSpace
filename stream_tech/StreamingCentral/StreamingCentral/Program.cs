@@ -9,8 +9,11 @@ namespace StreamingCentral
             //var server = new LocalServer();
 
             //server.Start();
-            var ytsearch = new YTSearchSample();
-            ytsearch.Start();
+            //var ytsearch = new YTSearchSample();
+            //ytsearch.Start();
+
+            var chatBot = new YTChatBot();
+            chatBot.Start();
         }
     }
 }

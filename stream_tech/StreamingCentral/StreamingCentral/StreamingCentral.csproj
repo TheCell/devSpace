@@ -9,4 +9,10 @@
     <PackageReference Include="Google.Apis.YouTube.v3" Version="1.51.0.2294" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="configs\apikey.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

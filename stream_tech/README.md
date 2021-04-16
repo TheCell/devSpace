@@ -6,3 +6,10 @@ cd C:\Git\devSpace\stream_tech\StreamingCentral\StreamingCentral
 dotnet add package Google.Apis.YouTube.v3 --version 1.51.0.2294
 
 ##Create an API Key for the youtube api: https://console.cloud.google.com/apis/credentials
+
+
+create a file named apikey.json inside StreamingCentral\StreamingCentral\configs and put the content in:
+
+{
+	"ApiKey": "your key"
+}
