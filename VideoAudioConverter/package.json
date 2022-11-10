@@ -15,7 +15,7 @@
   "author": "TheCell",
   "license": "",
   "devDependencies": {
-    "electron": "^15.5.5"
+    "electron": "^18.3.7"
   },
   "dependencies": {
     "shell-exec": "^1.0.2"
